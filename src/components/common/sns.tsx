@@ -1,0 +1,53 @@
+import React, {useState} from 'react';
+
+const Sns = () => {
+
+  const sns = (where: string) => {
+    const url = 'chlois.co.kr';
+    const text = '끌로이스풀빌라';
+    switch (where) {
+      case 'kakao':
+        // @ts-ignore
+        window?.Kakao.Link.sendCustom({
+          templateId: 78366,
+        });
+        break;
+      case 'story':
+        // @ts-ignore
+        window?.Kakao.Story.share({ url, text });
+        break;
+      case 'naver':
+        window.open(`http://blog.naver.com/openapi/share?url=${url}`);
+        break;
+      case 'band':
+        window.open(`http://www.band.us/plugin/share?body=${encodeURIComponent(text)}&route=${encodeURIComponent(url)}`, 'shareBand', 'width=400, height=500, resizable=yes');
+        break;
+      case 'facebook':
+        window.open(`http://www.facebook.com/sharer/sharer.php?u=${url}`);
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`);
+        break;
+      default:
+        break;
+    }
+  };
+  return (
+    <>
+      <div id="kakaoContainer"></div>
+      <div id="sns">
+        <h5>친구에게 공유하기</h5>
+        <ul className="sns">
+          <li className="kakao" onClick={()=>{ sns('kakao') }}></li>
+          <li className="story" onClick={()=>{ sns('story') }}></li>
+          <li className="naver" onClick={()=>{ sns('naver') }}></li>
+          <li className="band" onClick={()=>{ sns('band') }}></li>
+          <li className="facebook" onClick={()=>{ sns('facebook') }}></li>
+          <li className="twitter" onClick={()=>{ sns('twitter') }}></li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export default Sns;
