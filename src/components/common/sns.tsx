@@ -4,9 +4,9 @@ import Script from "next/script";
 const Sns = () => {
   const handleScriptLoad = () => {
     // @ts-ignore
-    const kakao = window.Kakao || {} ;
-    if(kakao.init) {
-      kakao.init('3322a4d2abce512425b96866d9844fd1');
+    const Kakao = window.Kakao || {} ;
+    if(Kakao.init) {
+      Kakao.init('3322a4d2abce512425b96866d9844fd1');
     }
   };
   const sns = (where: string) => {
@@ -15,13 +15,13 @@ const Sns = () => {
     switch (where) {
       case 'kakao':
         // @ts-ignore
-        window?.Kakao.Link.sendCustom({
+        Kakao.Link.sendCustom({
           templateId: 78366,
         });
         break;
       case 'story':
         // @ts-ignore
-        window?.Kakao.Story.share({ url, text });
+        Kakao.Story.share({ url, text });
         break;
       case 'naver':
         window.open(`http://blog.naver.com/openapi/share?url=${url}`);

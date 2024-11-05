@@ -27,7 +27,7 @@ const Map = () => {
   };
   return (
     <>
-      <div id="map" style={{ width: '100%', height: '400px' }} />
+      <div id="map" className="wapper-common" />
       <Script
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3322a4d2abce512425b96866d9844fd1&autoload=false"
         onLoad={handleScriptLoad}

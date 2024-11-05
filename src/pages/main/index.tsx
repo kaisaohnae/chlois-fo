@@ -16,9 +16,16 @@ export default function Page(): ReactElement {
   return (
     <>
       <Title title={title}/>
-      <MainVisual />
-      <MainVisualSub />
-      <Youtube />
+      <MainVisual/>
+      <MainVisualSub/>
+      <p className="en">
+        Comfortable rest in your imagination, Pleasure meeting.<br/>
+        It{'\''}s an auxiliary facility prepared for you.
+      </p>
+      <p className="big">
+        <strong>Private Room For Comfort</strong>
+      </p>
+      <Youtube/>
       {/*마트 무료픽업안내
       가평역 도착후 택시로 조은마트로 이동하기
       픽업접수처에서 끌로이스풀빌라 픽업신청하기
