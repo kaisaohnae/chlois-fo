@@ -3,6 +3,7 @@ import '@/assets/css/common.css'
 import '@/assets/css/lib/swiper-bundle.min.css'
 
 import {AppProps} from 'next/app';
+import React from 'react';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

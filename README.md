@@ -107,8 +107,6 @@ yarn build
 
 빌드 후 생성되는 `out`의 모든 파일들을 서버에 업로드 합니다.
 
-
-
 ```
 git config --global user.name "kaisa"
 git config --global user.email "kaisa@a-na.me"
