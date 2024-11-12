@@ -169,3 +169,19 @@ ul.sns li.kakao_ch {background-position:-400px 0;}
   .main-popup > div {width:90%; left:5%; top:5%; margin:0;}
   .main-popup > div ul li {font-size: 16px;}
 }
+
+.tabWrap {width:100%; height:40px;}
+.tab {width:100%; height:50px; white-space: nowrap; overflow:hidden; border-bottom:1px solid #eee;}
+.tab li {display:inline-block; color:#333; background:#fff; font-size:12px; cursor:pointer; text-align:center; width:100px; height:40px; line-height:40px; border:1px solid #ddd; margin:0 -1px -1px 0;}
+.tab li a {display:block; color:#333;}
+.tab li.on {background:#333; color:#fff;}
+.tab.fixed {position:fixed; left:0; top:60px; text-align: center; z-index:80; border:0;}
+.tab.fixed li {margin:5px; height:40px; line-height:40px; border:1px solid #fff; border-radius:15px; width:80px;}
+
+.tab li:nth-child(1).on {background:#ffc633; border:1px solid #ffc633;}
+.tab li:nth-child(2).on {background:#b63ddb; border:1px solid #b63ddb;}
+.tab li:nth-child(3).on {background:#fc7777; border:1px solid #fc7777;}
+
+#visualRoom {width:100%; display:block;}
+#visualRoom li {padding-bottom:20px;}
+#visualRoom li img {width:100%;}
