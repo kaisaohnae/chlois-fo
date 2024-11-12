@@ -21,7 +21,7 @@ body::-webkit-scrollbar {display:none;}
 #menu {width:100%; padding-bottom:10px; height:60px; position:absolute; left:0; bottom:0;}
 #menu ul {width:100%; text-align:center; white-space:nowrap; overflow:auto;}
 #menu ul::-webkit-scrollbar {display: none;}
-#menu ul li {display:inline-block; font-weight:bold; line-height:50px; padding:0 10px;}
+#menu ul li {display:inline-block; font-weight:bold; line-height:50px; font-size: 18px; padding:0 10px;}
 #menu ul li a {display:inline-block; color:#000; padding:0 10px;}
 #menu ul li.on a {color:#ff5500; cursor:default;}
 
@@ -89,21 +89,16 @@ th.required:after {content:'*'; display:inline-block; font-size:12px; color:#ff0
 #wrapper {width:100%;}
 #container {width:100%; margin:0 auto;}
 
-.main-visual-sub {width:100%; padding:20px 0;}
-.main-visual-sub li {width:25%; display:inline-block;}
-.main-visual-sub li.on {width:50%;}
-.main-visual-sub li img {width:100%;}
-/*slide*/
-.preview-slide {width:100%; overflow: hidden;}
-.preview-slide ul.swiper-wrapper {width:100%; white-space: nowrap;}
-.preview-slide ul.swiper-wrapper li {display:inline-block; width:100%;}
-.preview-slide ul.swiper-wrapper li img {width:100%;}
-
-
 #mapText {color:#333; padding:10px 0; text-align: center;}
 #mapText strong {font-size:14px;}
 #mapCover {width:1240px; position:absolute; left:50%; margin-left:-700px; height:350px; z-index:2;}
 #map {width:100%; height:350px; text-align: center; border:20px solid #fff; z-index:1; box-shadow:0 0 3px rgb(0,0,0,0.2); margin:0 auto; clear:both;}
+
+.visual-test {width:100%; background: #edd6b8; padding: 20px; text-align:center;}
+.visual-test p {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,0.8);}
+.visual-test p.en {line-height:22px; font-size:18px;}
+.visual-test p.big {line-height:30px; padding-top: 10px;}
+.visual-test p.big strong {font-size:26px;}
 
 #cs {width:100%; clear:both; text-align: center; padding-top:50px;}
 #cs .cs dl {width:100%;}
@@ -132,8 +127,45 @@ ul.sns li.twitter {background-position:-300px 0;}
 ul.sns li.instar {background-position:-350px 0;}
 ul.sns li.kakao_ch {background-position:-400px 0;}
 
-#movie {width:100%; background:#ddd; margin-top:20px; }
+#movie {width:100%; background:#ddd; margin-top:10px; }
 .movie {width:100%; padding-bottom:56.5%; position:relative;}
 .movie iframe {width:100%; height:100%; position:absolute; left:0; top:0;}
 
-.wapper-common {max-width:1200px;}
+.wrapper-common {max-width:1200px; margin:0 auto; position:relative;}
+
+.main-popup {width: 100%; height: 100%; position: fixed; left:0; top:0; background:rgba(0,0,0, 0.4); z-index:9000;}
+.main-popup > div {width:500px; box-shadow: 1px 1px 10px rgba(0,0,0,0.8); overflow:hidden; border-radius:10px; position: absolute; left: 50%; top: 50%; margin:-350px 0 0 -250px;}
+.main-popup > div img.close {width:40px;}
+.main-popup > div img.content {width:100%;}
+.main-popup > div .close {position:absolute; top:5px; right:5px; padding:10px; z-index:2; color:#000; font-size: 30px; cursor:pointer;}
+.main-popup > div ul {width:100%; position:absolute; left:0; bottom:0; display: flex; align-items: center; justify-content: space-between;}
+.main-popup > div ul li {flex:1; cursor:pointer; background:#fff; font-weight: bold; height:56px; text-align:center; line-height:56px; font-size:18px; color:#333;}
+.main-popup > div ul li:last-child {background:#333; color:#fff;}
+
+.layerMain {position:absolute; display:block; box-shadow:3px 3px 10px rgba(0,0,0,0.5); width:360px; left:10px; top:10px; z-index:10;}
+.layerMain div.box {padding:15px; background:#fff;}
+.layerMain .close {position:absolute; width:20px; right: 10px; top:10px; z-index:2; cursor:pointer;}
+.layerMain h5 {color:#000; font-size:16px; padding-bottom:10px;}
+.layerMain p {color:#333; font-size:14px; line-height:25px;}
+.layerMain a {color:#ff5500;}
+.layerMain ol {padding-left:10px;}
+.layerMain ol li {color:#333; list-style:decimal; padding-bottom:2px;}
+.layerMain ol li b {color:#000; font-size:12px;}
+.layerMain ol li strong {color:#000; font-size:12px;}
+.layerMain.martPickup p {font-size:14px;}
+.layerMain.martPickup a {color:#ff5500;}
+
+.layerMain.martPickup {left:10px; width:360px;}
+.layerMain.openEvent {left:380px; width:360px;}
+
+@media (max-width: 600px) {
+  .layerMain {position:relative; width:100%; left:0; top:0; margin-bottom:10px; box-shadow:none;}
+  .layerMain.martPickup {left:0; width:100%;}
+  .layerMain.openEvent {left:0; width:100%;}
+  .layerMain div.box {border:1px solid #ddd;}
+}
+
+@media screen and (max-width: 500px) {
+  .main-popup > div {width:90%; left:5%; top:5%; margin:0;}
+  .main-popup > div ul li {font-size: 16px;}
+}

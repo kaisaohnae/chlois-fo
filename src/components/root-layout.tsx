@@ -21,7 +21,7 @@ export default function RootLayout({children}: { children: ReactElement }) {
           <MetaTags/>
           <div id="wrapper">
             <Header/>
-            <div id="container" className="wapper-common">
+            <div id="container">
               {children}
             </div>
             <Sns/>

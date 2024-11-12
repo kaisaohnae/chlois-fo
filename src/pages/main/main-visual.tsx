@@ -38,12 +38,6 @@ export default function Page(): ReactElement {
           500: {
             slidesPerView: 1,
           },
-          1200: {
-            slidesPerView: 1,
-          },
-          1800: {
-            slidesPerView: 1,
-          },
         },
         on: {
           slideChange: () => {
@@ -56,21 +50,23 @@ export default function Page(): ReactElement {
   }, []);
 
   return (
-    <article ref={swiperContainerRef} className="preview-slide">
-      <ul className="swiper-wrapper">
-        {
-          mainVisualList.map((o: any, idx: number) => (
-            <li className="swiper-slide" key={idx}><img src={o.url} alt=''/></li>
-          ))
-        }
-      </ul>
-      <div className="swiper-pagination swiper-pagination1 swiper-pagination-bullets swiper-pagination-horizontal"></div>
-      <div className="swiper-button swiper-prev swiper-prev-1">
-        <i className="fal fa-chevron-left"></i>
-      </div>
-      <div className="swiper-button swiper-next swiper-next-1">
-        <i className="fal fa-chevron-right"></i>
-      </div>
-    </article>
+    <div className="slide-wrap wrapper-common">
+      <article ref={swiperContainerRef} className="preview-slide">
+        <ul className="swiper-wrapper">
+          {
+            mainVisualList.map((o: any, idx: number) => (
+              <li className="swiper-slide" key={idx}><img src={o.url} alt=''/></li>
+            ))
+          }
+        </ul>
+        <div className="swiper-pagination swiper-pagination1 swiper-pagination-bullets swiper-pagination-horizontal"></div>
+        <div className="swiper-button swiper-prev swiper-prev-1">
+          <i className="icon">&#xf104;</i>
+        </div>
+        <div className="swiper-button swiper-next swiper-next-1">
+          <i className="icon">&#xf105;</i>
+        </div>
+      </article>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import '@/assets/css/reset.css'
 import '@/assets/css/common.css'
+import '@/assets/css/slide.css'
 import '@/assets/css/lib/swiper-bundle.min.css'
 
 import {AppProps} from 'next/app';
