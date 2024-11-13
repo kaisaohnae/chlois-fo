@@ -147,3 +147,6 @@ button:active {opacity:0.5;}
 div,a,u,i,li,ol,ul,dl,dt,dd,span,strong,p,h1,h2,h3,h4,h5,img,input,select,button,iframe,textarea,label,fieldset,form {
     box-sizing:border-box;
 }
+div,a,li,ol,ul,dl,dt,dd,span,strong,p,h1,h2,h3,h4,h5,img,input,button,iframe,textarea,label,fieldset {
+	transition:0.2s all linear;
+}

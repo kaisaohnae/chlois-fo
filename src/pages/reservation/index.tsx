@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Title from '@/components/layout/title';
 import RootLayout from '@/components/root-layout';
 import {ReactElement} from 'react';
-import { motion } from 'framer-motion';
+import ReservationCalendar from './reservation-calendar';
 
 export default function Page(): ReactElement {
   const title = '';
@@ -16,9 +16,7 @@ export default function Page(): ReactElement {
   return (
     <div>
       <Title title={title}/>
-      <div className="illustrator">
-
-      </div>
+      <ReservationCalendar/>
     </div>
   );
 }

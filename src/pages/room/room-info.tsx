@@ -48,21 +48,33 @@ export default function Page(): ReactElement {
     {url : '/img/room/i14.png'}
   ];
 
+  const [tabIdx, setTabIdx] = useState(1);
+  const [isFixed, setFixed] = useState(false);
+
   useEffect(() => {
+    const handleFixed = () => {
+      if (window.scrollY >= 200) {
+        setFixed(true);
+      } else {
+        setFixed(false);
+      }
+    };
+    window.addEventListener("scroll", handleFixed, true);
+    return window.removeEventListener("scroll", handleFixed);
   }, []);
 
   return (
     <div id="room" className="wrapper-common">
       <div className="tabWrap">
-        <div className="tab" data-ng-class="{fixed : window.scrollTop > 200}">
+        <div className={isFixed ? 'tab fixed' : 'tab'}>
           <ul>
-            <li className="on">풀빌라A동</li>
-            <li>풀빌라B동</li>
-            <li>풀빌라C동</li>
+            <li className={tabIdx === 1 ? 'on' : ''} onClick={() => { setTabIdx(1) }}>풀빌라A동</li>
+            <li className={tabIdx === 2 ? 'on' : ''} onClick={() => { setTabIdx(2) }}>풀빌라B동</li>
+            <li className={tabIdx === 3 ? 'on' : ''} onClick={() => { setTabIdx(3) }}>풀빌라C동</li>
           </ul>
         </div>
       </div>
-      <div data-ng-show="tab.idx == 0">
+      <div style={{display: tabIdx === 1 ? 'block' : 'none'}}>
         <div id="visualRoom">
           <ul>
             {
@@ -73,7 +85,7 @@ export default function Page(): ReactElement {
           </ul>
         </div>
       </div>
-      <div data-ng-show="tab.idx == 1">
+      <div style={{display: tabIdx === 2 ? 'block' : 'none'}}>
         <div id="visualRoom">
           <ul>
             {
@@ -85,7 +97,7 @@ export default function Page(): ReactElement {
           {/*<iframe src="https://my.matterport.com/show/?m=KHZDkS6PgHQ" style="width:100%; height:75vh"></iframe>*/}
         </div>
       </div>
-      <div data-ng-show="tab.idx == 2">
+      <div style={{display: tabIdx === 3 ? 'block' : 'none'}}>
         <div id="visualRoom">
           <ul>
             {
