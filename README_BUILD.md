@@ -21,7 +21,7 @@ cd ..
 mkdir -p .github/workflows
 touch .github/workflows/deploy.yml
 
-저장소의 설정 → Actions → General → Workflow permissions에서 Read and write permissions로 설정되어 있는지 확인합니다.
+저장소의 설정 → Actions → General → Workflow permissions에서 Read and write permissions로 설정되어 있는지 확인합니다. (해야함)
 
 GitHub Pages 에 gh-pages 로 설정 
 
