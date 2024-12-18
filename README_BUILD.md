@@ -26,3 +26,8 @@ touch .github/workflows/deploy.yml
 GitHub Pages 에 gh-pages 로 설정 
 
 ```
+
+## 로컬 환경 이그노어 
+```
+.env.development.local
+```
