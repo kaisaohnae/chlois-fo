@@ -9,13 +9,13 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 export default function Page(): ReactElement {
   const ready = useRef(false);
-  const swiperContainerRef = useRef(null as any);
+  const swiperContainerRef = useRef<HTMLElement | null>(null);  // 타입을 지정
   const swiperInstance = useRef<SwiperCore | null>(null);
 
   useEffect(() => {
     if (!ready.current) {
       ready.current = true;
-      swiperInstance.current = new SwiperCore(swiperContainerRef.current, {
+      swiperInstance.current = new SwiperCore(swiperContainerRef.current as HTMLElement, {  // 타입 단언 추가
         initialSlide: 1,
         loop: true,
         slidesPerView: 1,

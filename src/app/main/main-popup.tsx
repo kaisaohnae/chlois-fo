@@ -18,7 +18,7 @@ export default function Page(): ReactElement {
     setPopupVisible(false);
   };
   if (!isPopupVisible) {
-    return null;
+    return (<></>);
   }
   return (
     <div className="main-popup">
