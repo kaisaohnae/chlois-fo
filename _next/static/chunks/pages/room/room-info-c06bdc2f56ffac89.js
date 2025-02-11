@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[911],{7053:function(n,_,o){(window.__NEXT_P=window.__NEXT_P||[]).push(["/room/room-info",function(){return o(2029)}])}},function(n){n.O(0,[332,893,29,888,774,179],function(){return n(n.s=7053)}),_N_E=n.O()}]);
