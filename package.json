@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev -p 8887",
+    "dev": "next dev -p 8886",
     "build:dev": "cross-env shx cp .env.production.dev .env.production && next build && cross-env shx rm .env.production",
     "build": "cross-env shx cp .env.production.prod .env.production && next build && cross-env shx rm .env.production",
     "start": "next start",
