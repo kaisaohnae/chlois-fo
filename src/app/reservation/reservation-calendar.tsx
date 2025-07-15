@@ -1,16 +1,19 @@
 'use client';
 
-import React, {useState, useEffect, ReactElement} from 'react';
+import React, {useState, useEffect, useRef, ReactElement} from 'react';
 import dateUtil from '@/utils/date-util';
 import MainService from '@/service/main-service';
 
 export default function Page(): ReactElement {
 
-  const [calendar, setCalendar] = useState({
-    date: new Date(),
-    year: dateUtil.format(new Date(), 'YYYY'),
-    month: dateUtil.format(new Date(), 'MM'),
-    days: [],
+  const [calendar, setCalendar] = useState(() => {
+    const date = new Date();
+    return {
+      date,
+      year: dateUtil.format(date, 'YYYY'),
+      month: dateUtil.format(date, 'MM'),
+      days: [] as any[],
+    };
   });
 
   const getClassForOrderState = (orderStateCode: any) => {
@@ -26,58 +29,61 @@ export default function Page(): ReactElement {
     }
   };
 
-  const move = (direction: any) => {
-    const newDate = new Date(calendar.date);
-    if (direction === 'prev') {
-      newDate.setMonth(newDate.getMonth() - 1);
-    } else {
-      newDate.setMonth(newDate.getMonth() + 1);
+  const getFirstDay = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const getList = async (targetDate: Date) => {
+    const year = dateUtil.format(targetDate, 'YYYY');
+    const month = dateUtil.format(targetDate, 'MM');
+
+    try {
+      const res = await MainService.calendar({ year, month });
+      const data = res.data;
+      const daysArray = [] as any[];
+
+      const firstDayOfMonth = getFirstDay(targetDate);
+      const totalDaysInMonth = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0).getDate();
+
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        daysArray.push({ day: 0, reservations: [] });
+      }
+
+      for (let i = 1; i <= totalDaysInMonth; i++) {
+        const dayStr = `${year}-${month}-${i.toString().padStart(2, '0')}`;
+        const dayData = data.find((item: any) => item.day === dayStr);
+
+        daysArray.push({
+          day: i,
+          reservations: dayData ? dayData.reservations.map((r: any) => ({
+            price: r.price,
+            productNo: r.productNo,
+            productName: r.productName,
+            orderStateCode: r.orderStateCode,
+          })) : [],
+        });
+      }
+
+      setCalendar({
+        date: targetDate,
+        year,
+        month,
+        days: daysArray,
+      });
+
+    } catch (err) {
+      console.error(err);
     }
-    setCalendar({
-      ...calendar,
-      date: newDate,
-      year: dateUtil.format(newDate, 'YYYY'),
-      month: dateUtil.format(newDate, 'MM'),
-    });
+  };
+
+  const move = (direction: 'prev' | 'next') => {
+    const newDate = new Date(calendar.date);
+    newDate.setMonth(newDate.getMonth() + (direction === 'next' ? 1 : -1));
     getList(newDate);
   };
 
-  const getFirstDay = () => {
-    return new Date(calendar.date.getFullYear(), calendar.date.getMonth(), 1).getDay();
-  };
-
-  const getList = (date = calendar.date) => {
-    MainService.calendar({year: calendar.year, month: calendar.month}).then(
-      (res) => {
-        const data = res.data;
-        const daysArray = [] as any;
-        const firstDayOfMonth = getFirstDay();
-        const totalDaysInMonth = new Date(calendar.date.getFullYear(), calendar.date.getMonth() + 1, 0).getDate();
-        for (let i = 0; i < firstDayOfMonth; i++) {
-          daysArray.push({day: 0, reservations: []});
-        }
-        for (let i = 1; i <= totalDaysInMonth; i++) {
-          const dayData = data.find((item: any) => item.day === `${calendar.year}-${calendar.month}-${i.toString().padStart(2, '0')}`);
-          daysArray.push({
-            day: i,
-            reservations: dayData ? dayData.reservations.map((r: any) => ({
-              price: r.price,
-              productNo: r.productNo,
-              productName: r.productName,
-              orderStateCode: r.orderStateCode,
-            })) : [],
-          });
-        }
-        calendar.days = daysArray;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   useEffect(() => {
-    getList();
+    getList(new Date());
   }, []);
 
   return (
@@ -97,7 +103,7 @@ export default function Page(): ReactElement {
             <div className="day-number">{o.day > 0 ? o.day : ''}</div>
             {o.reservations.length > 0 && (
               <div>
-                {o.reservations.map((rsv, rsvIndex) => (
+                {o.reservations.map((rsv: any, rsvIndex: number) => (
                   <div key={rsvIndex} className="product">
                     <p className={getClassForOrderState(rsv.orderStateCode)}>
                       <span className="productName">{rsv.productName}</span>
@@ -112,6 +118,5 @@ export default function Page(): ReactElement {
         ))}
       </div>
     </div>
-
   );
 }
