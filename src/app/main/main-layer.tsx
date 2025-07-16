@@ -14,7 +14,7 @@ export default function Page(): ReactElement {
     setPickup(false);
   };
   return (
-    <div className="wrapper-common">
+    <div>
       <div className="layerMain openEvent" style={{display: isEvent ? 'block' : 'none'}}>
         <div className="box">
           <img src={'/img/popup/btn-close.png'} className="close" onClick={closeEvent} alt=''/>

@@ -27,7 +27,7 @@ const Map = () => {
   };
   return (
     <>
-      <div id="map" className="wrapper-common" />
+      <div id="map"></div>
       <Script
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3322a4d2abce512425b96866d9844fd1&autoload=false"
         onLoad={handleScriptLoad}

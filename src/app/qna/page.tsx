@@ -1,11 +1,12 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import Title from '@/components/layout/title';
 import {ReactElement} from 'react';
+import Sns from "@/components/common/sns";
+import Map from "@/components/common/map";
+import Bank from "@/components/common/bank";
 
 export default function Page(): ReactElement {
-  const title = '';
 
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -14,11 +15,10 @@ export default function Page(): ReactElement {
   }, []);
 
   return (
-    <div>
-      <Title title={title}/>
-      <div className="works">
-
-      </div>
+    <div className="qna">
+      <Sns/>
+      <Map/>
+      <Bank/>
     </div>
   );
 }

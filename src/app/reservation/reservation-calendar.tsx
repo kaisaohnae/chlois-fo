@@ -87,7 +87,7 @@ export default function Page(): ReactElement {
   }, []);
 
   return (
-    <div id="calendar" className="wrapper-common">
+    <div id="calendar">
       <div className="calendar-controls">
         <h2>
           <span className="icon" onClick={() => move('prev')}>&#xe046;</span>

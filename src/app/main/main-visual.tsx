@@ -52,7 +52,7 @@ export default function Page(): ReactElement {
   }, []);
 
   return (
-    <div className="slide-wrap wrapper-common">
+    <div className="slide-wrap">
       <article ref={swiperContainerRef} className="preview-slide">
         <ul className="swiper-wrapper">
           {

@@ -27,7 +27,7 @@ export default function Menu() {
         mounted &&
         <div id="menu" className={isFixed ? 'fixed' : ''}>
             <ul>
-                <li className={pathname === '/main/' ? 'on' : ''}><Link href="/main/">홈</Link></li>
+                <li className={pathname === '/' ? 'on' : ''}><Link href="/">홈</Link></li>
                 <li className={pathname === '/room/' ? 'on' : ''}><Link href="/room/">객실정보</Link></li>
                 <li className={pathname === '/reservation/' ? 'on' : ''}><Link href="/reservation/">예약</Link></li>
                 <li className={pathname === '/qna/' ? 'on' : ''}><Link href="/qna/">문의</Link></li>

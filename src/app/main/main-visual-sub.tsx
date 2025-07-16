@@ -51,17 +51,30 @@ export default function Page(): ReactElement {
     }
   }, []);
   return (
-    <div className="slide-wrap wrapper-common">
-      <article ref={swiperContainerRef} className="preview-slide main-visual-sub">
-        <ul className="swiper-wrapper">
-          {
-            mainVisualSubList.map((o: any, idx: number) => (
-              <li className="swiper-slide" key={idx}><img src={o.url} alt=''/></li>
-            ))
-          }
-        </ul>
-        <div className="swiper-pagination swiper-pagination1 swiper-pagination-bullets swiper-pagination-horizontal"></div>
-      </article>
-    </div>
+    <>
+      <div className="slide-wrap">
+        <article ref={swiperContainerRef} className="preview-slide main-visual-sub">
+          <ul className="swiper-wrapper">
+            {
+              mainVisualSubList.map((o: any, idx: number) => (
+                <li className="swiper-slide" key={idx}><img src={o.url} alt=''/></li>
+              ))
+            }
+          </ul>
+          <div className="swiper-pagination swiper-pagination1 swiper-pagination-bullets swiper-pagination-horizontal"></div>
+        </article>
+      </div>
+
+      <div className="visual-wrapper">
+        <p className="en">
+          Comfortable rest in your imagination, Pleasure meeting.<br/>
+          It{'\''}s an auxiliary facility prepared for you.
+        </p>
+        <p className="big">
+          <strong>Private Room For Comfort</strong>
+        </p>
+      </div>
+
+    </>
   );
 }

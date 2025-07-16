@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header id="header">
       <h1>
-        <Link href="/"><img src={'/img/common/logo.png'} width={300} height={150} alt=''/></Link>
+        <Link href="/"><img src={'/img/common/logo.png'} height={120} alt=''/></Link>
       </h1>
       <Menu/>
     </header>
