@@ -4,8 +4,22 @@ import React, {useState, useEffect, useRef, ReactElement} from 'react';
 import dateUtil from '@/utils/date-util';
 import MainService from '@/service/main-service';
 import ReservationCalendarInfo from "@/app/reservation/reservation-calendar-info";
+import RoomPriceInfo from "@/app/room/room-price-info";
+import RoomInfo from "@/app/room/room-info";
+import ReservationAgreePopup from "@/app/reservation/reservation-agree-popup";
+import ReservationSelectPopup from "@/app/reservation/reservation-select-popup";
+import ReservationFormPopup from "@/app/reservation/reservation-form-popup";
 
 export default function Page(): ReactElement {
+
+  const [showAgreePopup, setShowAgreePopup] = useState(false);
+  const [showSelectPopup, setShowSelectPopup] = useState(false);
+  const [showFormPopup, setShowFormPopup] = useState(false);
+
+
+  const [dayRooms, setDayRooms]: any = useState([]);
+  const [selectDate, setSelectDate]: any = useState({});
+
 
   const [calendar, setCalendar] = useState(() => {
     const date = new Date();
@@ -39,7 +53,7 @@ export default function Page(): ReactElement {
     const month = dateUtil.format(targetDate, 'MM');
 
     try {
-      const res = await MainService.calendar({ year, month });
+      const res = await MainService.calendar({year, month});
       const data = res.data;
       const daysArray = [] as any[];
 
@@ -47,7 +61,7 @@ export default function Page(): ReactElement {
       const totalDaysInMonth = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0).getDate();
 
       for (let i = 0; i < firstDayOfMonth; i++) {
-        daysArray.push({ day: 0, reservations: [] });
+        daysArray.push({day: 0, reservations: []});
       }
 
       for (let i = 1; i <= totalDaysInMonth; i++) {
@@ -77,72 +91,126 @@ export default function Page(): ReactElement {
     }
   };
 
+  const canMovePrev = () => {
+    const now = new Date();
+    const prevDate = new Date(calendar.date);
+    prevDate.setMonth(prevDate.getMonth() - 1);
+    prevDate.setDate(1);
+
+    const nowDate = new Date(now.getFullYear(), now.getMonth(), 1);
+    return prevDate >= nowDate;
+  };
+
   const move = (direction: 'prev' | 'next') => {
     const newDate = new Date(calendar.date);
     newDate.setMonth(newDate.getMonth() + (direction === 'next' ? 1 : -1));
+    newDate.setDate(1); // 날짜 비교 안정성을 위해 1일 고정
+
+    const now = new Date();
+    const nowDate = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // 이전 달이 현재보다 과거면 차단
+    if (direction === 'prev' && newDate < nowDate) {
+      return;
+    }
+
     getList(newDate);
   };
+
+  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
     getList(new Date());
   }, []);
 
   return (
-    <div id="calendar">
+    <>
+      <div id="calendar" className="reservation">
 
-      <div className="calendar-controls">
-        <h2>
-          <span className="icon" onClick={() => move('prev')}>&#xe046;</span>
-          <span className="calendar-nav">
+        <div className="calendar-controls">
+          <h2>
+            <span className={`icon ${!canMovePrev() ? 'disabled' : ''}`} onClick={() => move('prev')}>&#xe046;</span>
+            <span className="calendar-nav">
             {calendar.year} 년 {calendar.month} 월
           </span>
-          <span className="icon" onClick={() => move('next')}>&#xe048;</span>
-        </h2>
-      </div>
+            <span className="icon" onClick={() => move('next')}>&#xe048;</span>
+          </h2>
+        </div>
 
-      <div className="calendar-grid">
-        {calendar.days.map((o: any, index) => (
-          <div className="calendar-day" key={index}>
-            <div className="day-number">{o.day > 0 ? o.day : ''}</div>
-            {o.reservations.length > 0 && (
-              <>
-                {(() => {
-                  const allReservable = o.reservations.every((rsv: any) => rsv.orderStateCode !== '예약가능');
-                  if (allReservable) {
-                    return (
-                      <div className="all-reservable-message">
-                        예약불가
-                      </div>
-                    );
-                  }
-                  return (
-                    <>
-                      {o.reservations.map((rsv: any, rsvIndex: number) => (
-                        <div key={rsvIndex} className="product">
-                          <p
-                            className={getClassForOrderState(rsv.orderStateCode)}
-                            onClick={() => {
-                              if (rsv.orderStateCode === '예약가능') {
-                                console.log(rsv);
+        <div className="calendar-grid">
+          {calendar.days.map((o: any, index) => {
+            const currentDate = new Date(calendar.date);
+            const today = new Date();
+            const thisDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), o.day);
+            const isPastDay = o.day > 0 && thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            return (
+              <div
+                className={`calendar-day ${isPastDay ? 'past' : ''}`}
+                key={index}
+              >
+                <div className="day-number">{o.day > 0 ? o.day : ''}</div>
+                {o.reservations.length > 0 && (
+                  <>
+                    {(() => {
+                      const allReservable = o.reservations.every((rsv: any) => rsv.orderStateCode !== '예약가능');
+                      return (
+                        <>
+                          <div className="mobile">
+                            {allReservable ? <div className="soldout">예약<br/>불가</div> : <div className="possible" onClick={() => {
+                              if (!allReservable && o.reservations.length > 0) {
+                                setSelectDate(`${calendar.year}-${calendar.month}-${o.day.toString().padStart(2, '0')}`);
+                                setDayRooms(o.reservations);
+                                setShowSelectPopup(true);
                               }
-                            }}
-                          >
-                            <span className="productName">{rsv.productName}</span>
-                            <span className="price">{rsv.price}</span>
-                          </p>
-                        </div>
-                      ))}
-                    </>
-                  );
-                })()}
-              </>
-            )}
-          </div>
-        ))}
+                            }}>예약<br/>하기</div>}
+                          </div>
+
+                          {o.reservations.map((rsv: any, rsvIndex: number) => (
+                            <div key={rsvIndex} className="product">
+                              <p
+                                className={getClassForOrderState(rsv.orderStateCode)}
+                                onClick={() => {
+                                  if (rsv.orderStateCode === '예약가능' && !isPastDay) {
+                                    setSelectDate(`${calendar.year}-${calendar.month}-${o.day.toString().padStart(2, '0')}`);
+                                    setShowAgreePopup(true);
+                                  }
+                                }}
+                              >
+                                <span className="productName">{rsv.productName}</span>
+                                <span className="price">{rsv.price}</span>
+                              </p>
+                            </div>
+                          ))}
+                        </>
+                      );
+                    })()}
+                  </>
+                )}
+              </div>
+            );
+          })}
+
+        </div>
+
+        <ReservationCalendarInfo/>
+
+        <RoomPriceInfo/>
+        <RoomInfo/>
+
       </div>
 
-      <ReservationCalendarInfo/>
+      <ReservationSelectPopup showSelectPopup={showSelectPopup} setShowSelectPopup={setShowSelectPopup} dayRooms={dayRooms} onSelectComplete={() => {
+        setShowSelectPopup(false)
+        setShowAgreePopup(true)
+      }}/>
 
-    </div>
+      <ReservationAgreePopup showAgreePopup={showAgreePopup} setShowAgreePopup={setShowAgreePopup} onAgreeComplete={() => {
+        setShowAgreePopup(false)
+        setShowFormPopup(true)
+      }}/>
+
+      <ReservationFormPopup showFormPopup={showFormPopup} setShowFormPopup={setShowFormPopup} selectDate={selectDate}/>
+
+    </>
   );
 }

@@ -2,8 +2,6 @@
 
 import React, {ReactElement, useEffect, useState} from 'react';
 import ReservationCalendar from './reservation-calendar';
-import RoomPriceInfo from "@/app/room/room-price-info";
-import RoomInfo from "@/app/room/room-info";
 
 export default function Page(): ReactElement {
   const [mounted, setMounted] = useState<boolean>(false);
@@ -13,11 +11,9 @@ export default function Page(): ReactElement {
   }, []);
 
   return (
-    <div className="reservation">
+    <>
       <ReservationCalendar/>
-      <RoomPriceInfo/>
-      <RoomInfo/>
-    </div>
+    </>
   );
 }
 

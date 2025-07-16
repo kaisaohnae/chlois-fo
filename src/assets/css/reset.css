@@ -106,12 +106,13 @@ label {display:inline-block;}
 hr {width:100%; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; border:0;}
 
 textarea {line-height:22px; padding:5px; width:100%; border:1px solid #bbb; white-space:pre-line;}
-button {margin-right:3px; font-size:12px; font-weight:bold; padding:0 10px; height:35px; line-height:35px; color:#fff; vertical-align: middle; background:#333; text-shadow:1px 1px 1px rgba(0,0,0,0.3); border:1px solid #000;}
+button {margin-right:3px; font-size:14px; font-weight:bold; padding:0 15px; height:40px; line-height:40px; color:#fff; vertical-align: middle; background:#333; text-shadow:1px 1px 1px rgba(0,0,0,0.3); border:1px solid #000;}
 button[type="submit"] {background:#ff5500; border:1px solid #ff5500; color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
+button.cancel,
 button[type="reset"] {background:#888; border:1px solid #666; color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
 button.refresh {background:rgba(0,0,0,0.6); border:1px solid rgba(0,0,0,0.8); color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
 button.send,
-button.save {background:#ff5500; border:1px solid #ff5500; color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
+button.save {background: #2d11ac; border:1px solid #2d11ac; color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
 button.button1 {background:#989c25; color:#fff; border:1px solid #989c25;}
 button.button2 {background:#358678; color:#fff; border:1px solid #358678;}
 button.button3 {background:#354d86; color:#fff; border:1px solid #354d86;}
