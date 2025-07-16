@@ -6,6 +6,8 @@ body::-webkit-scrollbar-thumb {background:#ddd; border:4px solid transparent; ba
 */
 body::-webkit-scrollbar {display:none;}
 
+body {overflow-x: hidden;}
+
 #container,
 #header,
 #side,

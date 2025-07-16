@@ -27,6 +27,11 @@
   right: -50px;
 }
 
+.preview-slide .swiper-prev,
+.preview-slide .swiper-next {display:none;}
+
 @media screen and (min-width: 639px) {
+  .preview-slide .swiper-prev,
+  .preview-slide .swiper-next {display:none;}
 }
 

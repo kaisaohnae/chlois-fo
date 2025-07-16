@@ -18,9 +18,6 @@ export default function Main(): ReactElement {
       <MainVisual/>
       <MainVisualSub/>
       <Youtube/>
-      <Sns/>
-      <Map/>
-      <Bank/>
     </div>
   );
 }

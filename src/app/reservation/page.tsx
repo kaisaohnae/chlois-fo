@@ -1,11 +1,7 @@
 'use client';
 
-import React, {useState, useEffect} from 'react';
-import {ReactElement} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import ReservationCalendar from './reservation-calendar';
-import Sns from "@/components/common/sns";
-import Map from "@/components/common/map";
-import Bank from "@/components/common/bank";
 import RoomPriceInfo from "@/app/room/room-price-info";
 import RoomInfo from "@/app/room/room-info";
 
@@ -21,9 +17,6 @@ export default function Page(): ReactElement {
       <ReservationCalendar/>
       <RoomPriceInfo/>
       <RoomInfo/>
-      <Sns/>
-      <Map/>
-      <Bank/>
     </div>
   );
 }

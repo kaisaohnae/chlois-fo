@@ -1,9 +1,17 @@
+'use client';
+
 import React, {useState} from 'react';
+import Bank from "@/components/common/bank";
+import Sns from "@/components/common/sns";
+import Map from "@/components/common/map";
 
 const Footer = () => {
 
   return (
     <>
+      <Sns/>
+      <Map/>
+      <Bank/>
       <footer id="footer">
         <div className="copy">
           <p>
@@ -15,8 +23,6 @@ const Footer = () => {
             Email : 7083620@hanmail.net
           </p>
         </div>
-
-
       </footer>
     </>
 );

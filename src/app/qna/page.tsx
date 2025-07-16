@@ -2,9 +2,6 @@
 
 import React, {useState, useEffect} from 'react';
 import {ReactElement} from 'react';
-import Sns from "@/components/common/sns";
-import Map from "@/components/common/map";
-import Bank from "@/components/common/bank";
 
 export default function Page(): ReactElement {
 
@@ -16,9 +13,7 @@ export default function Page(): ReactElement {
 
   return (
     <div className="qna">
-      <Sns/>
-      <Map/>
-      <Bank/>
+
     </div>
   );
 }

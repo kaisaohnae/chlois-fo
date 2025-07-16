@@ -1,7 +1,16 @@
-import React from 'react';
+'use client';
+
+import React, {useState} from 'react';
 import Script from 'next/script';
 
 const Map = () => {
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  if(!mounted) {
+    setMounted(true);
+    return null;
+  }
+
   const handleScriptLoad = () => {
     // @ts-ignore
     const kakao = window.kakao || {} as any; // sns 는 대문자 Kakao 고 이건 소문자 ㅡㅡ;;
@@ -25,7 +34,7 @@ const Map = () => {
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     });
   };
-  return (
+  return mounted && (
     <>
       <div id="map"></div>
       <Script

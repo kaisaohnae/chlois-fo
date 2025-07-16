@@ -1,7 +1,16 @@
+'use client';
+
 import React, {useState} from 'react';
 import Script from "next/script";
 
 const Sns = () => {
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  if(!mounted) {
+    setMounted(true);
+    return null;
+  }
+
   const handleScriptLoad = () => {
     // @ts-ignore
     const Kakao = window.Kakao || {} ;
@@ -39,7 +48,7 @@ const Sns = () => {
         break;
     }
   };
-  return (
+  return mounted && (
     <>
       <div id="kakaoContainer"></div>
       <div id="sns">
