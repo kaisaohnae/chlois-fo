@@ -3,6 +3,7 @@
 import React, {useState, useEffect, useRef, ReactElement} from 'react';
 import dateUtil from '@/utils/date-util';
 import MainService from '@/service/main-service';
+import ReservationCalendarInfo from "@/app/reservation/reservation-calendar-info";
 
 export default function Page(): ReactElement {
 
@@ -88,6 +89,7 @@ export default function Page(): ReactElement {
 
   return (
     <div id="calendar">
+
       <div className="calendar-controls">
         <h2>
           <span className="icon" onClick={() => move('prev')}>&#xe046;</span>
@@ -97,26 +99,50 @@ export default function Page(): ReactElement {
           <span className="icon" onClick={() => move('next')}>&#xe048;</span>
         </h2>
       </div>
+
       <div className="calendar-grid">
         {calendar.days.map((o: any, index) => (
           <div className="calendar-day" key={index}>
             <div className="day-number">{o.day > 0 ? o.day : ''}</div>
             {o.reservations.length > 0 && (
-              <div>
-                {o.reservations.map((rsv: any, rsvIndex: number) => (
-                  <div key={rsvIndex} className="product">
-                    <p className={getClassForOrderState(rsv.orderStateCode)}>
-                      <span className="productName">{rsv.productName}</span>
-                      <span className="price">{rsv.price}</span>
-                      <span className="orderStateCode">{rsv.orderStateCode}</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <>
+                {(() => {
+                  const allReservable = o.reservations.every((rsv: any) => rsv.orderStateCode !== '예약가능');
+                  if (allReservable) {
+                    return (
+                      <div className="all-reservable-message">
+                        예약불가
+                      </div>
+                    );
+                  }
+                  return (
+                    <>
+                      {o.reservations.map((rsv: any, rsvIndex: number) => (
+                        <div key={rsvIndex} className="product">
+                          <p
+                            className={getClassForOrderState(rsv.orderStateCode)}
+                            onClick={() => {
+                              if (rsv.orderStateCode === '예약가능') {
+                                console.log(rsv);
+                              }
+                            }}
+                          >
+                            <span className="productName">{rsv.productName}</span>
+                            <span className="price">{rsv.price}</span>
+                          </p>
+                        </div>
+                      ))}
+                    </>
+                  );
+                })()}
+              </>
             )}
           </div>
         ))}
       </div>
+
+      <ReservationCalendarInfo/>
+
     </div>
   );
 }
