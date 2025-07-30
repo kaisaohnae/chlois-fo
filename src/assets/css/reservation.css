@@ -2,11 +2,11 @@
 
 .reservation {width:100%; padding: 0 10px; max-width:1000px; margin:0 auto; position:relative;}
 
-.reservation-agree-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:100; background:rgba(0,0,0,0.5);}
+.reservation-agree-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:1000; background:rgba(0,0,0,0.5);}
 .reservation-agree-popup h2 {font-size:18px; font-weight:bold; color: #000; padding:15px 0;}
 .reservation-agree-popup h3 {font-weight:bold; color: #000; padding:20px 0 15px 0;}
-.reservation-agree-popup .form {position: absolute; width: 90%; left: 5%; top: 5%; border-radius:5px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); background:#fff; border:1px solid #aaa;}
-.reservation-agree-popup .form .scroll {width:100%; height:450px; padding:0 10px 10px 10px; border:1px solid #ddd; overflow: auto;}
+.reservation-agree-popup .form {position: absolute; width:80%; left:10%; top:10%; border-radius:5px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); background:#fff; border:1px solid #aaa;}
+.reservation-agree-popup .form .scroll {width:100%; height:300px; padding:0 20px 20px 20px; border:1px solid #ddd; overflow: auto;}
 .reservation-agree-popup label {cursor:pointer; display:block;}
 .reservation-agree-popup input[type="checkbox"] {margin-right:10px;}
 .reservation-agree-popup table {width:100%;}
@@ -15,9 +15,9 @@
 
 .all-agree-wrapper {font-size:16px; font-weight:bold; color: #000; padding:20px; margin-top:-1px; border:1px solid #ddd;}
 
-.reservation-select-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:100; background:rgba(0,0,0,0.5);}
+.reservation-select-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:1000; background:rgba(0,0,0,0.5);}
 .reservation-select-popup h2 {font-size:16px; font-weight:bold; color: #000; padding:15px 0;}
-.reservation-select-popup .form {border-radius:5px; padding:15px ; box-shadow:0 0 10px rgba(0,0,0,0.5); width:300px; position:fixed; left:50%; margin:-200px 0 0 -150px; top:50%; background:#fff;}
+.reservation-select-popup .form {border-radius:5px; padding:15px; box-shadow:0 0 10px rgba(0,0,0,0.5); width:300px; position:fixed; left:50%; margin:-200px 0 0 -150px; top:50%; background:#fff;}
 .reservation-select-popup .box {padding-top:10px;}
 .reservation-select-popup label {border-bottom:1px solid #dddddd; padding: 10px; display:block;}
 .reservation-select-popup label input {margin-right: 10px;}
@@ -31,7 +31,14 @@
 .reservation-select-popup label.pending   .orderStateCode {background: #ffbebe; color:#666; border:1px solid #e69898;}
 .reservation-select-popup label.available .orderStateCode {background: #d9f6b8; color:#666; border:1px solid #b7dc8e;}
 
+.reservation-form-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:1000; background:rgba(0,0,0,0.5);}
+.reservation-form-popup .form {position: absolute; width:80%; left:10%; top:10%; border-radius:5px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); background:#fff; border:1px solid #aaa;}
 
-.reservation-form-popup {position:fixed; width:100%; height:100%; left:0; top:0; z-index:100; background:rgba(0,0,0,0.5);}
-.reservation-form-popup .form {position: absolute; width: 90%; left: 5%; top: 5%; border-radius:5px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); background:#fff; border:1px solid #aaa;}
+.order-write-table {width:100%; margin-top:10px;}
+.order-write-table th {width:140px; padding:5px 10px; background:#f9f9f9; border:1px solid #ddd;}
+.order-write-table td {padding:5px 10px; background:#fff; border:1px solid #ddd;}
 
+@media (min-width: 1000px) {
+  .reservation-agree-popup .form,
+  .reservation-form-popup .form {width: 800px; left:50%; margin-left: -400px;}
+}

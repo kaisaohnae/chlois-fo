@@ -16,10 +16,9 @@ export default function Page(): ReactElement {
   const [showSelectPopup, setShowSelectPopup] = useState(false);
   const [showFormPopup, setShowFormPopup] = useState(false);
 
-
-  const [dayRooms, setDayRooms]: any = useState([]);
+  const [room, setRoom]: any = useState({});
+  const [rooms, setRooms]: any = useState([]);
   const [selectDate, setSelectDate]: any = useState({});
-
 
   const [calendar, setCalendar] = useState(() => {
     const date = new Date();
@@ -159,7 +158,7 @@ export default function Page(): ReactElement {
                             {allReservable ? <div className="soldout">예약<br/>불가</div> : <div className="possible" onClick={() => {
                               if (!allReservable && o.reservations.length > 0) {
                                 setSelectDate(`${calendar.year}-${calendar.month}-${o.day.toString().padStart(2, '0')}`);
-                                setDayRooms(o.reservations);
+                                setRooms(o.reservations);
                                 setShowSelectPopup(true);
                               }
                             }}>예약<br/>하기</div>}
@@ -172,6 +171,7 @@ export default function Page(): ReactElement {
                                 onClick={() => {
                                   if (rsv.orderStateCode === '예약가능' && !isPastDay) {
                                     setSelectDate(`${calendar.year}-${calendar.month}-${o.day.toString().padStart(2, '0')}`);
+                                    setRoom(rsv);
                                     setShowAgreePopup(true);
                                   }
                                 }}
@@ -199,7 +199,8 @@ export default function Page(): ReactElement {
 
       </div>
 
-      <ReservationSelectPopup showSelectPopup={showSelectPopup} setShowSelectPopup={setShowSelectPopup} dayRooms={dayRooms} onSelectComplete={() => {
+      <ReservationSelectPopup showSelectPopup={showSelectPopup} setShowSelectPopup={setShowSelectPopup} rooms={rooms} onSelectComplete={(r) => {
+        setRoom(r);
         setShowSelectPopup(false)
         setShowAgreePopup(true)
       }}/>
@@ -209,7 +210,7 @@ export default function Page(): ReactElement {
         setShowFormPopup(true)
       }}/>
 
-      <ReservationFormPopup showFormPopup={showFormPopup} setShowFormPopup={setShowFormPopup} selectDate={selectDate}/>
+      <ReservationFormPopup showFormPopup={showFormPopup} setShowFormPopup={setShowFormPopup} selectDate={selectDate} room={room}/>
 
     </>
   );

@@ -6,21 +6,27 @@ type Props = {
   showFormPopup: boolean;
   setShowFormPopup: (value: boolean) => void;
   selectDate: string;
+  room: any;
 };
 
-export default function ReservationFormPopup({showFormPopup, setShowFormPopup, selectDate}: Props) {
+export default function ReservationFormPopup({showFormPopup, setShowFormPopup, selectDate, room}: Props) {
   const [formData, setFormData] = useState({
-    roomNumber: '',
-    statusCode: '',
-    reservationDate: '',
-    memberName: '',
-    memberPhone: '',
-    memberEmail: '',
-    addCount1: '',
-    addCount3: '',
-    priceSum: '',
-    description: '',
-    captchaCode: ''
+    productNo: 0,
+    companyId: 'chlois',
+    reserveDay: '',
+    orderStateCode: '예약중',
+    orderName: '최재호',
+    phoneNo: '01073115111',
+    email: '7083620@hanmail.net',
+    price: 0,
+    addPrice: 0,
+    salePrice: 0,
+    headCount: 0,
+    isHotWater: 'N',
+    isPickup: 'N',
+    isBBQ: 'N',
+    isPet: 'N',
+    memo: '',
   });
 
   useEffect(() => {
@@ -29,7 +35,8 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
         ...prev,
         reservationDate: selectDate
       }));
-      console.log('Reservation Date:', selectDate);
+      console.log('selectDate:', selectDate);
+      console.log('room:', room);
     }
   }, [showFormPopup, selectDate]);
 
@@ -56,25 +63,30 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <li></li>
             </ul>
           </div>
-          <p className="txtGuide">1~2시간 이내에 입금하셔야 합니다. 미입금 시 예약이 자동 취소됩니다.</p>
+          <p className="main-color">1~2시간 이내에 입금하셔야 합니다. 미입금 시 예약이 자동 취소됩니다.</p>
 
-          <input type="hidden" name="roomNumber" value={formData.roomNumber} readOnly required/>
-          <input type="hidden" name="statusCode" value={formData.statusCode} readOnly required/>
-
-          <table className="readT">
+          <table className="order-write-table">
             <tbody>
             <tr>
-              <th className="required">객실명</th>
-              <td>{formData.roomNumber}</td>
-            </tr>
-            <tr>
-              <th className="required">예약일</th>
+              <th>객실명</th>
               <td>
                 <input
-                  style={{width: '140px'}}
                   type="text"
                   name="reservationDate"
-                  value={formData.reservationDate}
+                  value={room.productName}
+                  readOnly
+                  maxLength={15}
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>예약일</th>
+              <td>
+                <input
+                  type="text"
+                  name="reservationDate"
+                  value={formData.reserveDay}
                   readOnly
                   maxLength={15}
                   required
@@ -85,10 +97,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <th className="required">예약자명</th>
               <td>
                 <input
-                  style={{width: '140px'}}
                   type="text"
                   name="memberName"
-                  value={formData.memberName}
+                  value={formData.orderName}
                   onChange={handleChange}
                   maxLength={15}
                   minLength={2}
@@ -100,10 +111,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <th className="required">예약자 휴대폰번호</th>
               <td>
                 <input
-                  style={{width: '140px'}}
                   type="text"
                   name="memberPhone"
-                  value={formData.memberPhone}
+                  value={formData.phoneNo}
                   onChange={handleChange}
                   maxLength={13}
                   required
@@ -116,7 +126,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 <input
                   type="text"
                   name="memberEmail"
-                  value={formData.memberEmail}
+                  value={formData.email}
                   onChange={handleChange}
                   maxLength={30}
                   required
@@ -126,8 +136,13 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
             <tr>
               <th>인원</th>
               <td>
-                <select name="addCount1" value={formData.addCount1} onChange={handleChange}>
-                  {/* Populate options here */}
+                <select name="headCount" value={formData.headCount} onChange={handleChange}>
+                  <option value={0}>인원을 선택해주세요.</option>
+                  {[...Array(8)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}명
+                    </option>
+                  ))}
                 </select>
               </td>
             </tr>
@@ -135,8 +150,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <th>미온수 추가</th>
               <td>
                 <div style={{height: '5px', width: '100%'}}></div>
-                <select name="addCount3" value={formData.addCount3} onChange={handleChange}>
-                  {/* Populate options here */}
+                <select name="isHotWater" value={formData.isHotWater} onChange={handleChange}>
+                  <option value="N">추가안함</option>
+                  <option value="Y">추가</option>
                 </select>
               </td>
             </tr>
@@ -144,9 +160,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <th>금액</th>
               <td>
                 <p className="text1">
-                  국민은행 : <b className="font1">807502-04-127894</b><br/>예금주 : 최원호
+                  국민은행 : <b className="main-color">807502-04-127894</b><br/>예금주 : 최원호
                 </p>
-                <p><b className="price1">{formData.priceSum}</b> 원</p>
+                <p><b className="price1">{formData.price}</b> 원</p>
               </td>
             </tr>
             <tr>
@@ -155,33 +171,17 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 <textarea
                   name="description"
                   maxLength={80}
-                  value={formData.description}
+                  value={formData.memo}
                   onChange={handleChange}
                 ></textarea>
                 <br/>
-                {formData.description.length} / 80 자
-              </td>
-            </tr>
-            <tr>
-              <th className="required">자동등록방지</th>
-              <td>
-                <div className="captcha"></div>
-                <input
-                  name="captchaCode"
-                  type="text"
-                  value={formData.captchaCode}
-                  onChange={handleChange}
-                  maxLength={6}
-                  style={{width: '65px', display: 'inline-block'}}
-                  required
-                />
-                <button type="button" className="normal">새로고침</button>
+                {formData.memo?.length} / 80 자
               </td>
             </tr>
             </tbody>
           </table>
 
-          <div className="btnWrap">
+          <div className="button-wrapper">
             <button type="submit">확인</button>
             <button type="button" onClick={() => setShowFormPopup(false)}>취소</button>
           </div>

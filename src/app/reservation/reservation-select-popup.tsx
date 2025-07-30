@@ -14,13 +14,13 @@ type Props = {
   showSelectPopup: boolean;
   setShowSelectPopup: (show: boolean) => void;
   onSelectComplete: (room: Room) => void;
-  dayRooms: Room[];
+  rooms: Room[];
 };
 
 export default function ReservationSelectPopup({
                                                  showSelectPopup,
                                                  setShowSelectPopup,
-                                                 dayRooms,
+                                                 rooms,
                                                  onSelectComplete,
                                                }: Props) {
   const [selectedProductNo, setSelectedProductNo] = useState<string | number | null>(null);
@@ -39,7 +39,7 @@ export default function ReservationSelectPopup({
   };
 
   const handleSelect = () => {
-    const selectedRoom = dayRooms.find((r) => r.productNo === selectedProductNo);
+    const selectedRoom = rooms.find((r) => r.productNo === selectedProductNo);
     if (!selectedRoom) {
       alert('객실을 선택해주세요.');
       return;
@@ -49,8 +49,8 @@ export default function ReservationSelectPopup({
   };
 
   useEffect(() => {
-    console.log('dayRooms:', dayRooms);
-  }, [dayRooms]);
+    console.log('dayRooms:', rooms);
+  }, [rooms]);
 
   if (!showSelectPopup) return null;
 
@@ -60,7 +60,7 @@ export default function ReservationSelectPopup({
         <h2>예약하실 객실을 선택해주세요.</h2>
 
         <div className="room-list">
-          {dayRooms.map((room, index) => {
+          {rooms.map((room, index) => {
             const isDisabled = room.orderStateCode !== '예약가능';
             const inputId = `room-radio-${index}`;
             return (
@@ -88,7 +88,7 @@ export default function ReservationSelectPopup({
 
         <div className="button-wrapper">
           <button type="button" className="send" onClick={handleSelect}>
-            선택
+            예약하기
           </button>
           <button type="button" className="cancel" onClick={() => setShowSelectPopup(false)}>
             취소

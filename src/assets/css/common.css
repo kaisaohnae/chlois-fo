@@ -145,8 +145,8 @@ table.roomT {width:100%; white-space:nowrap; font-size:13px;}
 table.roomT th {text-align:center; border:1px solid #eee; padding:10px; background:#fafafa;}
 table.roomT td {text-align:center; border:1px solid #eee; padding:10px;}
 
-.price1 {color:#ff0000; font-size:16px;}
-.font1 {color:#ff5500;}
+.price-color {color:#ff0000; font-size:16px;}
+.main-color {color:#ff5500;}
 
 .scrollWrap {width:100%; clear:both; overflow: auto; background:none right top;}
 .icoScroll {display:none; opacity:0.3; width:39px; height:30px; position:absolute; right:20px; margin-top:-40px; background:url(/img/icon/ico_scroll.png) no-repeat right top;}
@@ -159,7 +159,6 @@ table.roomT td {text-align:center; border:1px solid #eee; padding:10px;}
 .button-close ul li:nth-child(1) {left:0; top:0; transform: rotate(45deg);}
 .button-close ul li:nth-child(2) {left:0; top:0; transform: rotate(-45deg);}
 .button-close:hover ul li {background:#000;}
-
 
 @media (max-width: 1000px) {
   .icoScroll {
