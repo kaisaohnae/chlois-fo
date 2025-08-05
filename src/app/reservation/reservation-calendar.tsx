@@ -9,10 +9,8 @@ import ReservationAgreePopup from "@/app/reservation/reservation-agree-popup";
 import ReservationSelectPopup from "@/app/reservation/reservation-select-popup";
 import ReservationFormPopup from "@/app/reservation/reservation-form-popup";
 import OrderService from "@/service/od/order-service";
-import useAlertStore from "@/store/use-alert-store";
 
 export default function Page(): ReactElement {
-  const {showAlert, hideAlert} = useAlertStore();
 
   const [showAgreePopup, setShowAgreePopup] = useState(false);
   const [showSelectPopup, setShowSelectPopup] = useState(false);
