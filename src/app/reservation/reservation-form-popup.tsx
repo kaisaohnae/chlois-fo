@@ -1,6 +1,8 @@
 'use client';
 
 import React, {useEffect, useState} from 'react';
+import useAlertStore from '@/store/use-alert-store';
+import OrderService from "@/service/od/order-service";
 
 type Props = {
   showFormPopup: boolean;
@@ -10,7 +12,9 @@ type Props = {
 };
 
 export default function ReservationFormPopup({showFormPopup, setShowFormPopup, selectDate, room}: Props) {
-  const [formData, setFormData] = useState({
+  const {showAlert, hideAlert} = useAlertStore();
+
+  const initFormData = {
     productNo: 0,
     companyId: 'chlois',
     reserveDay: '',
@@ -27,7 +31,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
     isBBQ: 'N',
     isPet: 'N',
     memo: '',
-  });
+  }
+
+  const [formData, setFormData] = useState(initFormData);
 
   useEffect(() => {
     if (showFormPopup) {
@@ -35,8 +41,13 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
         ...prev,
         reservationDate: selectDate
       }));
-      console.log('selectDate:', selectDate);
-      console.log('room:', room);
+      setFormData((prev) => ({
+        ...prev,
+        productNo: room.productNo,
+        reserveDay: selectDate
+      }));
+    } else {
+      setFormData(initFormData);
     }
   }, [showFormPopup, selectDate]);
 
@@ -44,13 +55,34 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
+    console.log('handleChange:', name, value);
     setFormData((prev) => ({...prev, [name]: value}));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Submitting reservation:', formData);
-    // TODO: submit logic
+
+    console.log('formData.headCount', formData.headCount);
+
+    if (!formData.headCount || formData.headCount == 0) {
+      showAlert({message: '인원을 선택해주세요.'});
+      return;
+    }
+    const res = await OrderService.saveOrder(formData);
+    showAlert({
+      message: res.message,
+      buttons: [{
+        type: 'on',
+        text: '확인',
+        callback: () => {
+          hideAlert();
+          if(res.success) {
+            window.location.reload();
+          }
+        }
+      }]
+    });
   };
 
   return (
@@ -72,7 +104,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <td>
                 <input
                   type="text"
-                  name="reservationDate"
+                  name="productName"
                   value={room.productName}
                   readOnly
                   maxLength={15}
@@ -85,7 +117,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <td>
                 <input
                   type="text"
-                  name="reservationDate"
+                  name="reserveDay"
                   value={formData.reserveDay}
                   readOnly
                   maxLength={15}
@@ -98,7 +130,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <td>
                 <input
                   type="text"
-                  name="memberName"
+                  name="orderName"
                   value={formData.orderName}
                   onChange={handleChange}
                   maxLength={15}
@@ -112,7 +144,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <td>
                 <input
                   type="text"
-                  name="memberPhone"
+                  name="phoneNo"
                   value={formData.phoneNo}
                   onChange={handleChange}
                   maxLength={13}
@@ -121,11 +153,11 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               </td>
             </tr>
             <tr>
-              <th className="required">예약자 이메일</th>
+              <th>예약자 이메일</th>
               <td>
                 <input
                   type="text"
-                  name="memberEmail"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
                   maxLength={30}
@@ -134,9 +166,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               </td>
             </tr>
             <tr>
-              <th>인원</th>
+              <th className="required">인원</th>
               <td>
-                <select name="headCount" value={formData.headCount} onChange={handleChange}>
+                <select name="headCount" value={formData.headCount} onChange={handleChange} required>
                   <option value={0}>인원을 선택해주세요.</option>
                   {[...Array(8)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>
@@ -169,7 +201,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
               <th>기타 요청사항</th>
               <td>
                 <textarea
-                  name="description"
+                  name="memo"
                   maxLength={80}
                   value={formData.memo}
                   onChange={handleChange}

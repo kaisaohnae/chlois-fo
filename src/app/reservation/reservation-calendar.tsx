@@ -2,15 +2,17 @@
 
 import React, {useState, useEffect, useRef, ReactElement} from 'react';
 import dateUtil from '@/utils/date-util';
-import MainService from '@/service/main-service';
 import ReservationCalendarInfo from "@/app/reservation/reservation-calendar-info";
 import RoomPriceInfo from "@/app/room/room-price-info";
 import RoomInfo from "@/app/room/room-info";
 import ReservationAgreePopup from "@/app/reservation/reservation-agree-popup";
 import ReservationSelectPopup from "@/app/reservation/reservation-select-popup";
 import ReservationFormPopup from "@/app/reservation/reservation-form-popup";
+import OrderService from "@/service/od/order-service";
+import useAlertStore from "@/store/use-alert-store";
 
 export default function Page(): ReactElement {
+  const {showAlert, hideAlert} = useAlertStore();
 
   const [showAgreePopup, setShowAgreePopup] = useState(false);
   const [showSelectPopup, setShowSelectPopup] = useState(false);
@@ -52,7 +54,7 @@ export default function Page(): ReactElement {
     const month = dateUtil.format(targetDate, 'MM');
 
     try {
-      const res = await MainService.calendar({year, month});
+      const res = await OrderService.calendar({year, month});
       const data = res.data;
       const daysArray = [] as any[];
 

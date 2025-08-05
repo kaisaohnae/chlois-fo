@@ -165,3 +165,9 @@ table.roomT td {text-align:center; border:1px solid #eee; padding:10px;}
     display: block;
   }
 }
+
+#alert { width: 100%; z-index: 8000; height: 100%; background: rgba(0, 0, 0, 0.3); position: fixed; left: 0; top: 0; }
+#alert .box { position: fixed; z-index: 8001; padding: 20px 30px; width: 380px; margin-left: -190px; left:50%; top: 35%; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background: #fff; color: #000; text-align: center; overflow: hidden; }
+#alert .box .message {padding: 10px 0;}
+#alert .box .buttons {padding: 10px 0;}
+#alert p { padding: 20px; }

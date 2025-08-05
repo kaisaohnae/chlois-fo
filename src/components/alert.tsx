@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback } from 'react';
-import alertStore from '@/components/store/alert-store';
+import useAlertStore from '@/store/use-alert-store';
 
-export default function AlertComponent() {
-  const alert = alertStore(useCallback((state) => state.alert, []));
-  const { hideAlert } = alertStore.getState();
+export default function Alert() {
+  const alert = useAlertStore(useCallback((state) => state.alert, []));
+  const { hideAlert } = useAlertStore.getState();
   if (!alert) {
     return null;
   }
@@ -14,8 +14,8 @@ export default function AlertComponent() {
       <div className="box">
         <div className="message">{alert.message}</div>
         <div className="buttons">
-          {alert.button && alert.button.length > 0 ? (
-            alert.button.map((btn: any, index: number) => (
+          {alert.buttons && alert.buttons.length > 0 ? (
+            alert.buttons.map((btn: any, index: number) => (
               <button
                 key={index}
                 className={btn.type === 'on' ? 'on' : 'off'}
