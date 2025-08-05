@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[595],{73:(e,s,t)=>{"use strict";t.r(s),t.d(s,{default:()=>n});var u=t(5155),a=t(2115);function n(){let[e,s]=(0,a.useState)(!1);return(0,a.useEffect)(()=>{s(!0)},[]),(0,u.jsx)("div",{className:"qna"})}},6922:(e,s,t)=>{Promise.resolve().then(t.bind(t,73))}},e=>{e.O(0,[441,964,358],()=>e(e.s=6922)),_N_E=e.O()}]);
