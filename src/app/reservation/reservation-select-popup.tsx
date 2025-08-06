@@ -49,7 +49,6 @@ export default function ReservationSelectPopup({
   };
 
   useEffect(() => {
-    console.log('dayRooms:', rooms);
   }, [rooms]);
 
   if (!showSelectPopup) return null;

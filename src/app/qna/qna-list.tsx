@@ -22,9 +22,8 @@ export default function QnaList(): ReactElement {
         <table className="list-table">
           <colgroup>
             <col width="100"/>
-            <col width="80"/>
             <col width="100"/>
-            <col width="100"/>
+            <col width="150"/>
             <col width="*"/>
           </colgroup>
           <thead>
@@ -32,7 +31,6 @@ export default function QnaList(): ReactElement {
             <th>문의번호</th>
             <th>문의자명</th>
             <th>문의자전화번호</th>
-            <th>문의자이메일</th>
             <th>제목</th>
           </tr>
           </thead>
@@ -43,17 +41,7 @@ export default function QnaList(): ReactElement {
                 <td className="tc">{item.qnaNo}</td>
                 <td>{item.memberName}</td>
                 <td>{item.phoneNo}</td>
-                <td>{item.email}</td>
-                <td>
-                  <p>
-                      <span
-                        className="pointer underline"
-                        onClick={() => alert(`비밀번호 입력 레이어: QNA #${item.qnaNo}`)}
-                      >
-                        {item.title.length > 15 ? item.title.slice(0, 15) + '…' : item.title}
-                      </span>
-                  </p>
-                </td>
+                <td>{item.title.length > 15 ? item.title.slice(0, 15) + '…' : item.title}</td>
               </tr>
             ))
           ) : (
@@ -66,7 +54,7 @@ export default function QnaList(): ReactElement {
           </tbody>
         </table>
       </div>
-      <p className="text-info">최근 문의 20개만 볼 수 있습니다.</p>
+      <p className="text-info">최근 문의내역 20개만 볼 수 있습니다.</p>
 
     </div>
   )

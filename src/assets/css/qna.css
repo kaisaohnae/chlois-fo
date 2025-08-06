@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.qna {width:100%; padding: 0 10px; max-width:1000px; margin:0 auto; position:relative;}
+.qna {width:100%; padding: 0 10px; max-width:1000px; min-height: 500px; margin:0 auto; position:relative;}
 
 table.list-table {width:100%; margin: 10px 0; line-height:28px; white-space:nowrap; border-top:1px solid #ddd;}
 table.list-table th {text-align:center; border-bottom:1px solid #eee; padding:3px 10px; background:#f5f5f5;}

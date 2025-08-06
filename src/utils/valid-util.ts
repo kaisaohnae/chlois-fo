@@ -1,119 +1,76 @@
 /**
- * 문자열의 min max 체크
+ * 숫자만 입력하게 제한하는 함수
+ * @param value 입력값
+ * @returns 숫자만 포함된 문자열
  */
-const minmax = {
-  validate(value: any, {min, max}: any) {
-    return value.length >= min && value.length <= max;
-  },
-  params: ["min", "max"],
+export const restrictNumeric = (value: string): string => {
+  if (/^\d*$/.test(value)) {
+    return value;
+  }
+  return value.replace(/\D/g, '');
 };
 
 /**
- * 해당 값이 '사업자 번호' 형식에 맞는 문자열인지 여부를 반환한다.
+ * 공백 및 특수문자 입력 제한 함수
+ * @param value
+ * @returns 한글, 숫자, 영문만 포함된 문자열
  */
-const bizno = {
-  validate(value: any) {
-    if (!value) return true;
-    // 넘어온 값의 정수만 추츨하여 문자열의 배열로 만들고 10자리 숫자인지 확인합니다.
-    if (value && value.match(/\d{1}/g).length != 10) {
-      return false;
-    }
-    // 합 / 체크키
-    var sum = 0,
-      key = [1, 3, 7, 1, 3, 7, 1, 3, 5];
-    // 0 ~ 8 까지 9개의 숫자를 체크키와 곱하여 합에 더합니다.
-    for (var i = 0; i < 9; i++) {
-      sum += key[i] * Number(value[i]);
-    }
-    // 각 8번배열의 값을 곱한 후 10으로 나누고 내림하여 기존 합에 더합니다.
-    // 다시 10의 나머지를 구한후 그 값을 10에서 빼면 이것이 검증번호 이며 기존 검증번호와 비교하면됩니다.
-    /*return 10 - ((sum + Math.floor((key[8] * Number(value[8])) / 10)) % 10) == Number(value[9]);*/
-    return (
-      (10 - ((sum + Math.floor((key[8] * Number(value[8])) / 10)) % 10)) % 10 ==
-      Number(value[9])
-    );
-  },
+export const restrictSpecialCharacters = (value: string): string => {
+  return value.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]/g, '');
 };
 
 /**
- * 해당 값이 '법인번호' 형식에 맞는 문자열인지 여부를 반환한다.
+ * 이름 중간 공백 허용 유효성 체크 시 사용
+ * @param value
  */
-const corno = {
-  validate(value: any) {
-    value = value.replace("-", "");
-    if (value.length != 13) {
-      return false;
-    }
-    var arr_regno = value.split("");
-    var arr_wt = new Array(1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2);
-    var iSum_regno = 0;
-    var iCheck_digit = 0;
-    for (var i = 0; i < 12; i++) {
-      iSum_regno += eval(arr_regno[i]) * arr_wt[i];
-    }
-    iCheck_digit = 10 - (iSum_regno % 10);
-    iCheck_digit = iCheck_digit % 10;
-    if (iCheck_digit != arr_regno[12]) {
-      return false;
-    }
-    return true;
-  },
+export const restrictNameWithSpace = (value: string): string => {
+  return value.trim();
 };
 
 /**
- * 해당 값이 '주민등록번호' 형식에 맞는지 여부를 반환한다.
- * 주민등록번호 체크 (전자정부프레임워크 : http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:rte:ptl:validation:add_rules_in_commons_validator)
- * Resident registration number
+ * 숫자와 하나의 하이픈('-')만 입력하게 제한하는 함수
+ *
+ * @param value 입력값
+ * @returns 숫자와 하나의 하이픈만 포함된 문자열
  */
-const rrno = {
-  validate(value: any) {
-    if (!value) return true;
-    var fmt = /^\d{6}[1234]\d{6}$/;
-    if (!fmt.test(value)) {
-      return false;
-    }
-    var birthYear = value.charAt(7) <= "2" ? "19" : "20";
-    birthYear += value.substr(0, 2);
-    var birthMonth = value.substr(2, 2) - 1;
-    var birthDate = value.substr(4, 2);
-    var birth = new Date(birthYear as any, birthMonth, birthDate);
-    if (
-      birth.getFullYear() % 100 != value.substr(0, 2) ||
-      birth.getMonth() != birthMonth ||
-      birth.getDate() != birthDate
-    ) {
-      return false;
-    }
-    var arrDivide = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
-    var checkdigit = 0;
-    for (var i = 0; i < value.length - 1; i++) {
-      checkdigit += parseInt(value.charAt(i)) * arrDivide[i];
-    }
-    checkdigit = (11 - (checkdigit % 11)) % 10;
-    if (checkdigit != value.charAt(12)) {
-      return false;
-    } else {
-      return true;
-    }
-  },
+export const restrictNumericWithDash = (value: string): string => {
+  // 숫자와 하이픈만 남기고 제거
+  const filteredValue = value.replace(/[^0-9-]/g, '');
+  // 연속된 하이픈 제거
+  return filteredValue.replace(/-+/g, '-');
 };
+
 /**
- * 해당 값이 '휴대폰번호' 형식에 맞는 문자열인지 여부를 반환한다.
+ * 최소 10자리 비밀번호 영문 대소문자, 숫자, 특수문자 중 2가지 이상 조합
+ * @param value
  */
-const phone = {
-  validate(value: any) {
-    if (!value) return true;
-    var regExp = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
-    if (!regExp.test(value)) {
-      return false;
-    }
-    return true;
-  },
+export const isValidPassword = (value: string): boolean => {
+  const lengthValid = /^.{10,}$/.test(value);
+  const hasLetter = /[a-zA-Z]/.test(value);
+  const hasDigit = /\d/.test(value);
+  const hasSpecialChar = /[!@#$%^&*]/.test(value);
+
+  const typesCount = [hasLetter, hasDigit, hasSpecialChar].filter(Boolean).length;
+  return lengthValid && typesCount >= 2;
 };
-export default {
-  minmax,
-  bizno,
-  corno,
-  rrno,
-  phone,
+
+/**
+ * 이메일 형식으로 입력하게 제한하는 함수
+ * @param value 입력값
+ * @returns 이메일 형식이면 true
+ */
+export const isValidEmail = (value: string): boolean => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 };
+
+/**
+ * 전화번호 형식의 값인지 판단하는 함수
+ * 010 또는 999로 시작하고, 3~4자리 숫자, 하이픈, 4자리 숫자로 구성
+ * @param phoneNumber 입력한 전화번호
+ * @returns 올바른 전화번호 형식이면 true
+ */
+export const isValidPhoneNumber = (phoneNumber: string): boolean => {
+  const regex = /^(010|999)(-?\d{3,4})-?\d{4}$/;
+  return regex.test(phoneNumber);
+};
+

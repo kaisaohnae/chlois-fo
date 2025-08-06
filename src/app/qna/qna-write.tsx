@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import useAlertStore from '@/store/use-alert-store';
 import QnaService from "@/service/od/qna-service";
+import {restrictNumeric, isValidPhoneNumber, isValidEmail} from '@/utils/valid-util';
 
 interface Props {
   showFormPopup: boolean;
   setShowFormPopup: (value: boolean) => void;
 }
 
-export default function QnaWrite({ showFormPopup, setShowFormPopup }: Props) {
-  const { showAlert, hideAlert } = useAlertStore();
+export default function QnaWrite({showFormPopup, setShowFormPopup}: Props) {
+  const {showAlert, hideAlert} = useAlertStore();
 
   const initFormData = {
-    memberName: '',
+    companyId: 'chlois',
+    memberName: '최재호',
     phoneNo: '',
-    email: '',
     title: '',
     content: '',
   };
@@ -31,12 +32,23 @@ export default function QnaWrite({ showFormPopup, setShowFormPopup }: Props) {
   if (!showFormPopup) return null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    let {name, value} = e.target;
+    switch (name) {
+      case 'phoneNo':
+        value = restrictNumeric(value);
+        break;
+      default:
+        break;
+    }
+    setFormData(prev => ({...prev, [name]: value}));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(!isValidPhoneNumber(formData.phoneNo)) {
+      showAlert({message: '올바른 전화번호가 아닙니다.'});
+      return;
+    }
     const res = await QnaService.saveQna(formData);
     showAlert({
       message: res.message,
@@ -73,12 +85,6 @@ export default function QnaWrite({ showFormPopup, setShowFormPopup }: Props) {
               <th className="required">휴대폰번호</th>
               <td>
                 <input type="text" name="phoneNo" value={formData.phoneNo} onChange={handleChange} required maxLength={13}/>
-              </td>
-            </tr>
-            <tr>
-              <th className="required">이메일</th>
-              <td>
-                <input type="text" name="email" value={formData.email} onChange={handleChange} required maxLength={30}/>
               </td>
             </tr>
             <tr>
