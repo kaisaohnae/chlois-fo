@@ -15,6 +15,9 @@
 .swiper-slide {margin-top: 10px;}
 .swiper-slide img {border-radius:10px; overflow:hidden;}
 
+.main-banner {width:100%; overflow:hidden; margin-bottom:10px; border-radius:10px;}
+.main-banner img {width:100%;}
+
 .layerMain {position:absolute; border-radius:10px; overflow:hidden; display:block; box-shadow:3px 3px 10px rgba(0,0,0,0.5); width:360px; left:20px; top:20px; z-index:10;}
 .layerMain div.box {padding:15px; background:#fff;}
 .layerMain .close {position:absolute; width:20px; right: 10px; top:10px; z-index:2; cursor:pointer;}
@@ -41,12 +44,14 @@
 .visual-wrapper p.big strong {font-size:20px; font-weight:600; color:#000;}
 
 .layerMain.martPickup {top:20px; left:20px; width:360px;}
+.layerMain.martPickup .box {background: #dbfff5;}
 .layerMain.openEvent {top:20px; left:390px; width:360px;}
+.layerMain.openEvent .box {background: #fff1db;}
 
 @media (max-width: 600px) {
     .layerMain {position:relative; width:100%; left:0; top:0; margin-bottom:10px; box-shadow:none; border:1px solid #ddd;}
-    .layerMain.martPickup {left:0; width:100%; margin-bottom:20px;}
-    .layerMain.openEvent {left:0; width:100%;}
+    .layerMain.martPickup {top:10px; left:0; width:100%; margin-bottom:20px;}
+    .layerMain.openEvent {top:10px; left:0; width:100%;}
 }
 
 @media screen and (max-width: 500px) {

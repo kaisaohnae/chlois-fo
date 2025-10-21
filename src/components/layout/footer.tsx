@@ -1,11 +1,40 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { usePathname } from 'next/navigation';
 import Bank from "@/components/common/bank";
 import Sns from "@/components/common/sns";
 import Map from "@/components/common/map";
 
 const Footer = () => {
+
+  const pathname = usePathname();
+
+  const degSets = [
+    ["120deg", "140deg", "80deg", "30deg", "40deg"],
+    ["40deg", "80deg", "140deg", "90deg", "170deg"],
+    ["80deg", "40deg", "0deg", "140deg", "60deg"],
+    ["40deg", "140deg", "80deg", "50deg", "80deg"],
+  ];
+
+  const [degs, setDegs] = useState(degSets[0]);
+
+  useEffect(() => {
+    // 경로별로 다른 배열 선택
+    switch (pathname) {
+      case "/room/":
+        setDegs(degSets[1]);
+        break;
+      case "/reservation/":
+        setDegs(degSets[2]);
+        break;
+      case "/qna/":
+        setDegs(degSets[3]);
+        break;
+      default:
+        setDegs(degSets[0]);
+    }
+  }, [pathname]);
 
   return (
     <>
@@ -26,11 +55,11 @@ const Footer = () => {
       </footer>
 
       <div className="flower-container">
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: '120deg', opacity: 0.5, marginLeft: -600, width: 150, height: 150, top: 200, animationDuration: '8s', animationDelay: '2s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: '120deg', opacity: 0.8, marginLeft: -450, width: 200, height: 200, top: 50, animationDuration: '10s', animationDelay: '12s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: '120deg', opacity: 0.3, marginLeft: -570, width: 60, height: 60, top: 140, animationDuration: '7s', animationDelay: '4s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: '0deg', opacity: 0.8, marginLeft: 400, width: 200, height: 200, top: 150, animationDuration: '5s', animationDelay: '7s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -2, rotate: '40deg', opacity: 0.6, marginLeft: 350, width: 100, height: 100, top: 90, animationDuration: '6s', animationDelay: '3s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[0], opacity: 0.3, marginLeft: -600, width: 150, height: 150, top: 200, animationDuration: '8s', animationDelay: '2s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[1], opacity: 0.6, marginLeft: -450, width: 200, height: 200, top: 50, animationDuration: '10s', animationDelay: '12s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[2], opacity: 0.2, marginLeft: -570, width: 60, height: 60, top: 140, animationDuration: '7s', animationDelay: '4s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[3], opacity: 0.6, marginLeft: 400, width: 200, height: 200, top: 150, animationDuration: '5s', animationDelay: '7s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -2, rotate: degs[4], opacity: 0.4, marginLeft: 350, width: 100, height: 100, top: 90, animationDuration: '6s', animationDelay: '3s' }} />
       </div>
     </>
 );

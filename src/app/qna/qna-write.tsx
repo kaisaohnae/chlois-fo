@@ -15,7 +15,7 @@ export default function QnaWrite({showFormPopup, setShowFormPopup}: Props) {
 
   const initFormData = {
     companyId: 'chlois',
-    memberName: '최재호',
+    memberName: '',
     phoneNo: '',
     title: '',
     content: '',
@@ -84,7 +84,7 @@ export default function QnaWrite({showFormPopup, setShowFormPopup}: Props) {
             <tr>
               <th className="required">휴대폰번호</th>
               <td>
-                <input type="text" name="phoneNo" value={formData.phoneNo} onChange={handleChange} required maxLength={13}/>
+                <input type="text" name="phoneNo" value={formData.phoneNo} onChange={handleChange} required maxLength={11}/>
               </td>
             </tr>
             <tr>

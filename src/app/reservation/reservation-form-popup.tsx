@@ -19,9 +19,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
     companyId: 'chlois',
     reserveDay: '',
     orderStateCode: '예약중',
-    orderName: '최재호',
-    phoneNo: '01073115111',
-    email: '7083620@hanmail.net',
+    orderName: '',
+    phoneNo: '',
+    email: '',
     price: 0,
     addPrice: 0,
     salePrice: 0,
@@ -162,7 +162,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                   name="phoneNo"
                   value={formData.phoneNo}
                   onChange={handleChange}
-                  maxLength={13}
+                  maxLength={11}
                   required
                 />
               </td>

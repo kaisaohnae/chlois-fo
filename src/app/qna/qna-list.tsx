@@ -54,7 +54,7 @@ export default function QnaList(): ReactElement {
           </tbody>
         </table>
       </div>
-      <p className="text-info">최근 문의내역 20개만 볼 수 있습니다.</p>
+      <p className="text-info">최근 문의내역 10개만 볼 수 있습니다.</p>
 
     </div>
   )
