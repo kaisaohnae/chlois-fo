@@ -173,3 +173,32 @@ table.roomT td {text-align:center; border:1px solid #eee; padding:10px;}
 #alert .box .message {padding: 10px 0;}
 #alert .box .buttons {padding: 10px 0;}
 #alert p { padding: 20px; }
+
+
+/*flower*/
+.flower-container {}
+.flower {
+    position: absolute;
+    z-index:-1;
+    left: 50%;
+    pointer-events: none;
+    animation-name: float;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+@media (max-width: 800px) {
+    .flower {display:none;}
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-30px) rotate(15deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
