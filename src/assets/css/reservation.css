@@ -37,6 +37,7 @@
 .order-write-table {width:100%; margin-top:10px;}
 .order-write-table th {width:140px; padding:5px 10px; background:#f9f9f9; border:1px solid #ddd;}
 .order-write-table td {padding:5px 10px; background:#fff; border:1px solid #ddd;}
+.order-write-table td .totalPrice {color:#000; font-size:20px; font-weight:bold; padding:10px 0;}
 
 @media (min-width: 1000px) {
   .reservation-agree-popup .form,

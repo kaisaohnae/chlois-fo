@@ -71,6 +71,7 @@ export default function Page(): ReactElement {
           day: i,
           reservations: dayData ? dayData.reservations.map((r: any) => ({
             price: r.price,
+            displayPrice: r.displayPrice,
             productNo: r.productNo,
             productName: r.productName,
             orderStateCode: r.orderStateCode,
@@ -177,7 +178,7 @@ export default function Page(): ReactElement {
                                 }}
                               >
                                 <span className="productName">{rsv.productName}</span>
-                                <span className="price">{rsv.price}</span>
+                                <span className="price">{rsv.displayPrice}</span>
                               </p>
                             </div>
                           ))}
