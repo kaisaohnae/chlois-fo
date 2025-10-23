@@ -113,6 +113,14 @@ export default function Page(): ReactElement {
     if (direction === 'prev' && newDate < nowDate) {
       return;
     }
+    const maxDate = new Date(nowDate);
+    maxDate.setMonth(maxDate.getMonth() + 5);
+
+    // 다음 달 이동 제한
+    if (direction === 'next' && newDate > maxDate) {
+      alert('5개월이내만 예약이 가능합니다.')
+      return;
+    }
 
     getList(newDate);
   };

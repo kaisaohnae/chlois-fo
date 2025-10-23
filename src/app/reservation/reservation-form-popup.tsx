@@ -1,8 +1,10 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useAlertStore from '@/store/use-alert-store';
 import OrderService from "@/service/od/order-service";
+import ReCAPTCHA from 'react-google-recaptcha';
+import {isValidPhoneNumber} from '@/utils/valid-util';
 
 type Props = {
   showFormPopup: boolean;
@@ -13,6 +15,9 @@ type Props = {
 
 export default function ReservationFormPopup({showFormPopup, setShowFormPopup, selectDate, room}: Props) {
   const {showAlert, hideAlert} = useAlertStore();
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
 
   const initFormData = {
     productNo: 0,
@@ -70,6 +75,10 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
     }
   }, [formData.headCount, formData.isHotWater, room]);
 
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(value);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
     setFormData(prev => ({...prev, [name]: value}));
@@ -81,6 +90,17 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
       showAlert({message: '인원을 선택해주세요.'});
       return;
     }
+
+    if (!isValidPhoneNumber(formData.phoneNo)) {
+      showAlert({message: '올바른 전화번호가 아닙니다.'});
+      return;
+    }
+
+    if (!captchaValue) {
+      showAlert({message: '로봇이 아님을 확인해주세요.'});
+      return;
+    }
+
     const res = await OrderService.saveOrder(formData);
     showAlert({
       message: res.message,
@@ -176,7 +196,6 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                   value={formData.email}
                   onChange={handleChange}
                   maxLength={30}
-                  required
                 />
               </td>
             </tr>
@@ -223,6 +242,16 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 ></textarea>
                 <br/>
                 {formData.memo?.length} / 80 자
+              </td>
+            </tr>
+            <tr>
+              <th className="required">로봇방지</th>
+              <td>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey="6LdtLfQrAAAAAB0hn015g6AG6oDkMR4e7RhywpMv"
+                  onChange={handleCaptchaChange}
+                />
               </td>
             </tr>
             </tbody>
