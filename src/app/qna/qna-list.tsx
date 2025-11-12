@@ -45,11 +45,18 @@ export default function QnaList(): ReactElement {
               </tr>
             ))
           ) : (
-            <tr>
-              <td colSpan={6} style={{textAlign: 'center', padding: '100px 0'}}>
-                문의가 없습니다.
-              </td>
-            </tr>
+            <>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+              <tr><td colSpan={4}></td></tr>
+            </>
           )}
           </tbody>
         </table>
