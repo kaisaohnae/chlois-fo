@@ -71,6 +71,7 @@ export default function Page(): ReactElement {
           day: i,
           reservations: dayData ? dayData.reservations.map((r: any) => ({
             price: r.price,
+            displayPrice: r.displayPrice,
             productNo: r.productNo,
             productName: r.productName,
             orderStateCode: r.orderStateCode,
@@ -110,6 +111,14 @@ export default function Page(): ReactElement {
 
     // 이전 달이 현재보다 과거면 차단
     if (direction === 'prev' && newDate < nowDate) {
+      return;
+    }
+    const maxDate = new Date(nowDate);
+    maxDate.setMonth(maxDate.getMonth() + 5);
+
+    // 다음 달 이동 제한
+    if (direction === 'next' && newDate > maxDate) {
+      alert('5개월이내만 예약이 가능합니다.')
       return;
     }
 
@@ -177,7 +186,7 @@ export default function Page(): ReactElement {
                                 }}
                               >
                                 <span className="productName">{rsv.productName}</span>
-                                <span className="price">{rsv.price}</span>
+                                <span className="price">{rsv.displayPrice}</span>
                               </p>
                             </div>
                           ))}

@@ -1,8 +1,10 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useAlertStore from '@/store/use-alert-store';
 import OrderService from "@/service/od/order-service";
+import ReCAPTCHA from 'react-google-recaptcha';
+import {isValidPhoneNumber} from '@/utils/valid-util';
 
 type Props = {
   showFormPopup: boolean;
@@ -14,14 +16,17 @@ type Props = {
 export default function ReservationFormPopup({showFormPopup, setShowFormPopup, selectDate, room}: Props) {
   const {showAlert, hideAlert} = useAlertStore();
 
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+
   const initFormData = {
     productNo: 0,
     companyId: 'chlois',
     reserveDay: '',
     orderStateCode: '예약중',
-    orderName: '최재호',
-    phoneNo: '01073115111',
-    email: '7083620@hanmail.net',
+    orderName: '',
+    phoneNo: '',
+    email: '',
     price: 0,
     addPrice: 0,
     salePrice: 0,
@@ -31,44 +36,71 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
     isBBQ: 'N',
     isPet: 'N',
     memo: '',
-  }
+  };
 
   const [formData, setFormData] = useState(initFormData);
 
+  // Hook들은 항상 실행되어야 함 (조건문 안 X)
   useEffect(() => {
-    if (showFormPopup) {
-      setFormData((prev) => ({
-        ...prev,
-        reservationDate: selectDate
-      }));
-      setFormData((prev) => ({
+    if (showFormPopup && room) {
+      setFormData(prev => ({
         ...prev,
         productNo: room.productNo,
-        reserveDay: selectDate
+        reserveDay: selectDate,
+        price: room.price,
       }));
     } else {
       setFormData(initFormData);
     }
-  }, [showFormPopup, selectDate]);
+  }, [showFormPopup, selectDate, room]);
 
-  if (!showFormPopup) return null;
+  const calculatePrice = (basePrice: number, headCount: number, isHotWater: string) => {
+    let total = basePrice;
+    const basePeople = 2;
+    const extraPeople = headCount > basePeople ? headCount - basePeople : 0;
+    total += extraPeople * 30000;
+    if (isHotWater === 'Y') total += 50000;
+    return total;
+  };
+
+  useEffect(() => {
+    if (room && room.price) {
+      console.log(room);
+      const newPrice = calculatePrice(
+        Number(room.price),
+        Number(formData.headCount),
+        formData.isHotWater
+      );
+      setFormData(prev => ({...prev, price: newPrice}));
+    }
+  }, [formData.headCount, formData.isHotWater, room]);
+
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(value);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
-    console.log('handleChange:', name, value);
-    setFormData((prev) => ({...prev, [name]: value}));
+    setFormData(prev => ({...prev, [name]: value}));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitting reservation:', formData);
-
-    console.log('formData.headCount', formData.headCount);
-
     if (!formData.headCount || formData.headCount == 0) {
       showAlert({message: '인원을 선택해주세요.'});
       return;
     }
+
+    if (!isValidPhoneNumber(formData.phoneNo)) {
+      showAlert({message: '올바른 전화번호가 아닙니다.'});
+      return;
+    }
+
+    if (!captchaValue) {
+      showAlert({message: '로봇이 아님을 확인해주세요.'});
+      return;
+    }
+
     const res = await OrderService.saveOrder(formData);
     showAlert({
       message: res.message,
@@ -84,6 +116,9 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
       }]
     });
   };
+
+  // 조건부 렌더링
+  if (!showFormPopup) return null;
 
   return (
     <div className="reservation-form-popup">
@@ -147,7 +182,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                   name="phoneNo"
                   value={formData.phoneNo}
                   onChange={handleChange}
-                  maxLength={13}
+                  maxLength={11}
                   required
                 />
               </td>
@@ -161,7 +196,6 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                   value={formData.email}
                   onChange={handleChange}
                   maxLength={30}
-                  required
                 />
               </td>
             </tr>
@@ -194,7 +228,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 <p className="text1">
                   국민은행 : <b className="main-color">807502-04-127894</b><br/>예금주 : 최원호
                 </p>
-                <p><b className="price1">{formData.price}</b> 원</p>
+                <p className="totalPrice">{formData.price} 원</p>
               </td>
             </tr>
             <tr>
@@ -208,6 +242,16 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 ></textarea>
                 <br/>
                 {formData.memo?.length} / 80 자
+              </td>
+            </tr>
+            <tr>
+              <th className="required">로봇방지</th>
+              <td>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey="6LdtLfQrAAAAAB0hn015g6AG6oDkMR4e7RhywpMv"
+                  onChange={handleCaptchaChange}
+                />
               </td>
             </tr>
             </tbody>
