@@ -178,7 +178,7 @@ table.roomT td {text-align:center; border:1px solid #eee; padding:10px;}
 
 
 /*flower*/
-.flower-container {}
+.flower-container {opacity: 0.6;}
 .flower {
     position: absolute;
     z-index:-1;

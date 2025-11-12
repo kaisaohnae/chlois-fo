@@ -1,19 +1,11 @@
 'use client';
 
-import React, {ReactElement, useEffect} from 'react';
-import SwiperCore from 'swiper';
-import {Autoplay, Navigation, Pagination} from 'swiper/modules';
+import { useEffect } from 'react';
 
-SwiperCore.use([Navigation, Pagination, Autoplay]);
-
-export default function Page(): ReactElement {
+export default function Page() {
   useEffect(() => {
-    useEffect(() => {
-      window.location.href = "https://bo.kaisa.co.kr";
-    }, []);
+    window.location.replace("https://bo.kaisa.co.kr");
   }, []);
-  return (
-    <>
-    </>
-  );
+
+  return null;
 }

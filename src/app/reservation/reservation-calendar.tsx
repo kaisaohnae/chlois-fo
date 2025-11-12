@@ -145,6 +145,9 @@ export default function Page(): ReactElement {
           </h2>
         </div>
 
+
+        <ReservationCalendarInfo/>
+
         <div className="calendar-grid">
           {calendar.days.map((o: any, index) => {
             const currentDate = new Date(calendar.date);

@@ -18,20 +18,20 @@
 #calendar .mobile .soldout {color: #ccc; cursor:default;}
 #calendar .mobile .possible {color: #4c914a; cursor:pointer; text-decoration: underline;}
 
-#calendar .info ul {text-align: right; padding:10px;}
-#calendar .info ul li {display: block;}
+#calendar .info ul {text-align: right; padding:20px 10px;}
+#calendar .info ul li {display: inline-block;}
 #calendar .info ul li span {display:inline-block; font-size: 12px;}
-#calendar .info ul li span.ico           {background: #f2f2f2; border:1px solid #dddddd; width: 18px; height: 18px;  margin-left: 10px;vertical-align: middle;}
+#calendar .info ul li span.ico           {background: #f2f2f2; border:1px solid #dddddd; width: 18px; height: 18px;  margin-left: 5px;vertical-align: middle;}
 #calendar .info ul li span.ico.pending   {background: #ffbebe; border:1px solid #e69898;}
 #calendar .info ul li span.ico.available {background: #d9f6b8; border:1px solid #b7dc8e;}
-#calendar .info ul li span.name {width: 55px;}
+#calendar .info ul li span.name {display: inline-block; padding-left: 10px;}
 
 #calendar .product { font-size: 11px; text-align: right; }
 #calendar .product p {display: inline-block; width:55px; cursor: default; padding-left: 8px; letter-spacing: -0.5px; text-align: left; margin-bottom: 5px; border-radius: 3px; color: #000; }
 #calendar .product p span { display: inline-block; padding-right:2px; }
 #calendar .product p.paid      {background: #f2f2f2; color:#999; border:1px solid #dddddd;}
 #calendar .product p.pending   {background: #ffbebe; color:#666; border:1px solid #e69898;}
-#calendar .product p.available {background: #d9f6b8; color:#666; border:1px solid #b7dc8e; cursor: pointer;}
+#calendar .product p.available {background: #e3fbc7; color:#666; border:1px solid #b7dc8e; cursor: pointer;}
 #calendar .calendar-day.past .product p.available {cursor: default;}
 @media (max-width: 580px) {
   #calendar .product {display: none;}

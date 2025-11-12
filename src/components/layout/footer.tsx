@@ -55,11 +55,11 @@ const Footer = () => {
       </footer>
 
       <div className="flower-container">
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[0], opacity: 0.3, marginLeft: -600, width: 150, height: 150, top: 200, animationDuration: '8s', animationDelay: '2s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[1], opacity: 0.6, marginLeft: -450, width: 200, height: 200, top: 50, animationDuration: '10s', animationDelay: '12s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[2], opacity: 0.2, marginLeft: -570, width: 60, height: 60, top: 140, animationDuration: '7s', animationDelay: '4s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[3], opacity: 0.6, marginLeft: 400, width: 200, height: 200, top: 150, animationDuration: '5s', animationDelay: '7s' }} />
-        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -2, rotate: degs[4], opacity: 0.4, marginLeft: 350, width: 100, height: 100, top: 90, animationDuration: '6s', animationDelay: '3s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[0], opacity: 0.3, marginLeft: -650, width: 150, height: 150, top: 160, animationDuration: '8s', animationDelay: '2s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[1], opacity: 0.5, marginLeft: -500, width: 200, height: 200, top: 10, animationDuration: '10s', animationDelay: '12s' }} />
+       {/* <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[2], opacity: 0.2, marginLeft: -620, width: 60, height: 60, top: 100, animationDuration: '7s', animationDelay: '4s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -1, rotate: degs[3], opacity: 0.5, marginLeft: 450, width: 200, height: 160, top: 110, animationDuration: '5s', animationDelay: '7s' }} />
+        <img src="/img/main/flower.png" alt="flower" className="flower" style={{ zIndex: -2, rotate: degs[4], opacity: 0.4, marginLeft: 400, width: 100, height: 100, top: 50, animationDuration: '6s', animationDelay: '3s' }} />*/}
       </div>
     </>
 );
