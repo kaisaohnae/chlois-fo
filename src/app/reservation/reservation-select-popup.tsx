@@ -79,7 +79,7 @@ export default function ReservationSelectPopup({
                 />
                 <span className="productName">{room.productName}</span>
                 <span className="price">{room.price}</span>
-                <span className="orderStateCode">{room.orderStateCode}</span>
+                <span className="orderStateCode">{room.orderStateCode === '결제완료' ? '예약마감' : room.orderStateCode}</span>
               </label>
             );
           })}

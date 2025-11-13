@@ -167,7 +167,7 @@ export default function Page(): ReactElement {
                       return (
                         <>
                           <div className="mobile">
-                            {allReservable ? <div className="soldout">예약<br/>불가</div> : <div className="possible" onClick={() => {
+                            {allReservable ? <div className="soldout">예약<br/>마감</div> : <div className="possible" onClick={() => {
                               if (!allReservable && o.reservations.length > 0) {
                                 setSelectDate(`${calendar.year}-${calendar.month}-${o.day.toString().padStart(2, '0')}`);
                                 setRooms(o.reservations);
