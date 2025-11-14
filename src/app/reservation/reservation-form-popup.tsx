@@ -91,10 +91,10 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
       return;
     }
 
-    if (!isValidPhoneNumber(formData.phoneNo)) {
-      showAlert({message: '올바른 전화번호가 아닙니다.'});
+    /*if (!formData.phoneNo) {
+      showAlert({message: '전화번호를 입력해주세요.'});
       return;
-    }
+    }*/
 
     if (!captchaValue) {
       showAlert({message: '로봇이 아님을 확인해주세요.'});
@@ -187,7 +187,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                 />
               </td>
             </tr>
-            <tr>
+            {/*<tr>
               <th>예약자 이메일</th>
               <td>
                 <input
@@ -198,7 +198,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
                   maxLength={30}
                 />
               </td>
-            </tr>
+            </tr>*/}
             <tr>
               <th className="required">인원</th>
               <td>
