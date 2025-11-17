@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[698],{4853:(e,s,n)=>{Promise.resolve().then(n.bind(n,7220))},7220:(e,s,n)=>{"use strict";n.r(s),n.d(s,{default:()=>r});var t=n(2115);function r(){return(0,t.useEffect)(()=>{window.location.replace("https://bo.kaisa.co.kr")},[]),null}}},e=>{e.O(0,[441,964,358],()=>e(e.s=4853)),_N_E=e.O()}]);
