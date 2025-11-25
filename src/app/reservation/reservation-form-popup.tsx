@@ -56,7 +56,7 @@ export default function ReservationFormPopup({showFormPopup, setShowFormPopup, s
 
   const calculatePrice = (basePrice: number, headCount: number, isHotWater: string) => {
     let total = basePrice;
-    const basePeople = 2;
+    const basePeople = 4;
     const extraPeople = headCount > basePeople ? headCount - basePeople : 0;
     total += extraPeople * 30000;
     if (isHotWater === 'Y') total += 50000;
