@@ -12,6 +12,7 @@ import '@/assets/css/reservation.css'
 import '@/assets/css/qna.css'
 import '@/assets/css/lib/swiper-bundle.min.css'
 import MetaTags from '@/components/layout/meta-tags';
+import GoogleAnalytics from '@/components/layout/google-analytics';
 import Alert from '@/components/alert';
 import Loading from '@/components/loading';
 import LayoutSub from '@/app/layout-sub';
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
     <MetaTags />
+    <GoogleAnalytics />
     <body>
     <Header />
     <LayoutSub>{children}</LayoutSub>
