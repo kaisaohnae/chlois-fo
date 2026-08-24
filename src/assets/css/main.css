@@ -34,6 +34,20 @@
 .swiper-button:hover {color:#ff5500 !important;}
 .swiper-pagination-bullet-active {background:#ff5500 !important;}
 
+/* 1단 슬라이더 페이징 — 색상만 살짝 강조 */
+.slide-wrap:not(.sub) .swiper-pagination1 .swiper-pagination-bullet {
+  background: #ffaa77;
+  opacity: 1;
+}
+
+.slide-wrap:not(.sub) .swiper-pagination1 .swiper-pagination-bullet-active {
+  background: #ff5500 !important;
+}
+
+.slide-wrap.sub .swiper-pagination-sub {
+  display: none;
+}
+
 .visual-caption {width:100%; text-align:center; padding:10px; margin-top:10px;}
 .visual-caption h2 {font-size:28px; font-weight:600; color:#000; margin-bottom:6px;}
 .visual-caption p {font-size:16px; color:#555;}
