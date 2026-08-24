@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+#calendar { width: 100%; padding-top: 30px;}
+#calendar .calendar-controls { width: 100%; text-align: center; }
+#calendar h2 { font-size: 20px; line-height: 40px; color: #333; padding: 23px 0 23px 0; }
+#calendar h2 .calendar-nav { display: inline-block; padding: 0 15px; }
+#calendar h2 .icon { font-size: 25px; color: #aaa; vertical-align: middle; cursor: pointer; padding: 5px; width: 40px; }
+#calendar h2 .icon:hover { color: #333; }
+#calendar h2 .icon.disabled { color: #eee; cursor: default; }
+#calendar .calendar-grid {display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; }
+#calendar .calendar-day {border: 1px solid #f2f2f2; position: relative; padding: 8px 10px; min-height: 80px; margin-right:-1px; margin-bottom:-1px; box-sizing: border-box; }
+#calendar .calendar-day.past { background: #eee; opacity: 0.5;}
+#calendar .calendar-day .day-number { text-align: right; color: #000; padding-bottom: 10px; font-weight: bold;}
+#calendar .calendar-day:nth-child(7n - 6) .day-number { color: #ff0000; }
+#calendar .calendar-day:nth-child(7n) .day-number { color: #6172c9; }
+
+#calendar .mobile {display:none; font-size: 12px; line-height:16px; padding-bottom: 20px; text-align: center;}
+#calendar .mobile .soldout {color: #ccc; cursor:default;}
+#calendar .mobile .possible {color: #4c914a; cursor:pointer; text-decoration: underline;}
+
+#calendar .info ul {text-align: right; padding:20px 10px;}
+#calendar .info ul li {display: inline-block;}
+#calendar .info ul li span {display:inline-block; font-size: 12px;}
+#calendar .info ul li span.ico           {background: #f2f2f2; border:1px solid #dddddd; width: 18px; height: 18px;  margin-left: 5px;vertical-align: middle;}
+#calendar .info ul li span.ico.pending   {background: #ffbebe; border:1px solid #e69898;}
+#calendar .info ul li span.ico.available {background: #d9f6b8; border:1px solid #b7dc8e;}
+#calendar .info ul li span.name {display: inline-block; padding-left: 10px;}
+
+#calendar .product { font-size: 11px; text-align: right; }
+#calendar .product p {display: inline-block; width:55px; cursor: default; padding-left: 8px; letter-spacing: -0.5px; text-align: left; margin-bottom: 5px; border-radius: 3px; color: #000; }
+#calendar .product p span { display: inline-block; padding-right:2px; }
+#calendar .product p.paid      {background: #f2f2f2; color:#999; border:1px solid #dddddd;}
+#calendar .product p.pending   {background: #ffbebe; color:#666; border:1px solid #e69898;}
+#calendar .product p.available {background: #e3fbc7; color:#666; border:1px solid #b7dc8e; cursor: pointer;}
+#calendar .calendar-day.past .product p.available {cursor: default;}
+@media (max-width: 580px) {
+  #calendar .product {display: none;}
+  #calendar .mobile {display:block;}
+  #calendar .past .mobile {display:none;}
+}
