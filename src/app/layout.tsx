@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   robots: {index: true, follow: true},
+  other: {
+    'naver-site-verification': '462c521e76be63d2770fcbfde01c520476fd4adf',
+  },
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
