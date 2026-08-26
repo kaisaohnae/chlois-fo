@@ -1,23 +1,14 @@
-'use client';
+import HomePageClient from '@/app/home-page-client';
+import JsonLd from '@/components/seo/json-ld';
+import {homeJsonLd, homePageMetadata} from '@/lib/seo';
 
-import React, {ReactElement, useEffect, useState} from 'react';
-import SwiperCore from 'swiper';
-import {Autoplay, Navigation, Pagination} from 'swiper/modules';
-import Main from "@/app/main/main";
+export const metadata = homePageMetadata();
 
-SwiperCore.use([Navigation, Pagination, Autoplay]);
-
-export default function Page(): ReactElement {
-
-  useEffect(() => {
-
-  }, []);
-
+export default function Page() {
   return (
     <>
-      <div className="container">
-       <Main/>
-      </div>
+      <JsonLd data={homeJsonLd()} />
+      <HomePageClient />
     </>
   );
 }

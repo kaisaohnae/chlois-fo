@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap:https://chlois.co.kr/sitemap.xml
